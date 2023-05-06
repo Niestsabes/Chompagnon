@@ -45,10 +45,17 @@ public class GameManager : MonoBehaviour
             transform.gameObject.SetActive(true);
         }
         if (_currentSquirrel == 0)
+        {
             PlayersTransform[_currentSquirrel + 1].SetParent(PlayersTransform[_currentSquirrel]);
+            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().Second = true;
+            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().SecondPos = true;
+        }
         else
+        {
             PlayersTransform[_currentSquirrel - 1].SetParent(PlayersTransform[_currentSquirrel]);
-
+            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().Second = true;
+            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().SecondPos = true;
+        }
 
         _lifes[0] = 1;
         _lifes[1] = 1;
@@ -85,20 +92,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Detach(InputAction.CallbackContext context)
+    public void Detach()
     {
-        if (!context.canceled) return;
         if (Atached)
         {
             if (_currentSquirrel == 1)
             {
+                PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().move.x = 0;
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             }
             else
             {
+                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().move.x = 0;
                 PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
                 PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+
             }
             PlayersTransform[_currentSquirrel].DetachChildren();
             Atached = !Atached;
@@ -107,10 +116,10 @@ public class GameManager : MonoBehaviour
             Atach();
     }
 
-    public void SwitchSquirrel(InputAction.CallbackContext context)
+    public void SwitchSquirrel()
     {
-        if (!context.canceled) return;
         Vector3 temp;
+        //if (_lifes[_currentSquirrel])
         switch (_currentSquirrel)
         {
             case 0:
@@ -127,10 +136,12 @@ public class GameManager : MonoBehaviour
                 {
                     PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = false;
                     PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
+                    
                 }
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<SpriteRenderer>().sortingOrder -= 2;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = false;
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().move.x = 0;
                 _currentSquirrel++;
 
                 break;
@@ -151,22 +162,22 @@ public class GameManager : MonoBehaviour
                     PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
                 }
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<SpriteRenderer>().sortingOrder += 2;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = false;
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().move.x = 0;
                 _currentSquirrel--;
 
                 break;
         }
-
         PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
-        PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = true;
+        PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos;
         SwitchCameraTarget();
     }
 
     public void Death()
     {
         var playerController = PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>();
-        
+
         //animation
 
         //playerController.controlEnabled = false;
@@ -204,8 +215,9 @@ public class GameManager : MonoBehaviour
             else
             {
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = true;
+
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().Second = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().Second;
                 SwitchCameraTarget();
             }
         }
