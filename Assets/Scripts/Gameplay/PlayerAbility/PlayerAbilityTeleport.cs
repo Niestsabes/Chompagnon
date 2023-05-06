@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Mechanics;
 
+/// <summary>
+/// Ability that teleports player to an associated tomb
+/// </summary>
 public class PlayerAbilityTeleport : PlayerAbility
 {
-    public Tomb focusedTomb;
+    private TombObject focusedTomb;
 
     /// <summary>
     /// Teleport player to a distant tomb
@@ -18,12 +21,12 @@ public class PlayerAbilityTeleport : PlayerAbility
         yield return null;
     }
 
-    public Tomb GetFocusedTomb()
+    public TombObject GetFocusedTomb()
     {
         return this.focusedTomb;
     }
 
-    public void SetFocusedTomb(Tomb tomb)
+    public void SetFocusedTomb(TombObject tomb)
     {
         if (tomb == null) { this.focusedTomb = null; return; }
         this.focusedTomb = tomb;

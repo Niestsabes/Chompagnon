@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Platformer.Mechanics
 {
-    public class Tomb : MonoBehaviour
+    public class TombObject : MonoBehaviour
     {
         [Header("Settings")]
         public Gradient colorGradient;
         public float topColorDist;
         public float bottomColorDist;
         public float triggerDist;
-        public Tomb targetTomb;
+        public TombObject targetTomb;
 
         [Header("GameObject Components")]
         public SpriteRenderer spriteRenderer;

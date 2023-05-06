@@ -9,7 +9,6 @@ public abstract class PlayerAbility : MonoBehaviour
 {
     public void OnFire(InputValue value)
     {
-        Debug.Log(value.Get<float>());
         if (value.Get<float>() > 0) StartCoroutine(this.Execute());
     }
 
