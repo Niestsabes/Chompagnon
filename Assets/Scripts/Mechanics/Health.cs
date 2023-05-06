@@ -42,7 +42,6 @@ namespace Platformer.Mechanics
                 var ev = Schedule<HealthIsZero>();
                 ev.health = this;
             }
-            GameManager.Instance.DecreaseHealth();
         }
 
         /// <summary>
@@ -56,6 +55,7 @@ namespace Platformer.Mechanics
         void Awake()
         {
             currentHP = maxHP;
+
         }
     }
 }
