@@ -27,9 +27,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        _lifes = new int[2];
-        _lifes[0] = 1;
-        _lifes[1] = 1;
+        Spawn();
     }
 
     public void GameOver()
@@ -40,7 +38,6 @@ public class GameManager : MonoBehaviour
 
     public void Spawn()
     {
-        Atached = true;
         foreach (Transform transform in PlayersTransform)
         {
             transform.position = Vector3.zero;
@@ -50,12 +47,13 @@ public class GameManager : MonoBehaviour
             PlayersTransform[_currentSquirrel + 1].SetParent(PlayersTransform[_currentSquirrel]);
         else
             PlayersTransform[_currentSquirrel - 1].SetParent(PlayersTransform[_currentSquirrel]);
-        
-        
+
+
         _lifes[0] = 1;
         _lifes[1] = 1;
         SwitchCameraTarget();
         Atach();
+        Atached = true;
     }
 
     public void SwitchCameraTarget()
@@ -73,7 +71,7 @@ public class GameManager : MonoBehaviour
             PlayersTransform[_currentSquirrel - 1].parent = PlayersTransform[_currentSquirrel];
             PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
             PlayersTransform[_currentSquirrel - 1].position = new Vector3(PlayersTransform[_currentSquirrel].position.x - 0.2f, PlayersTransform[_currentSquirrel].position.y, 0);
-            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             Atached = !Atached;
         }
         else if (_currentSquirrel == 0 && PlayersTransform[_currentSquirrel].position.x >= PlayersTransform[_currentSquirrel + 1].position.x - 0.25f && PlayersTransform[_currentSquirrel].position.x <= PlayersTransform[_currentSquirrel + 1].position.x + 0.25f)
@@ -130,6 +128,7 @@ public class GameManager : MonoBehaviour
                 }
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<SpriteRenderer>().sortingOrder -= 2;
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = false;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
                 _currentSquirrel++;
 
                 break;
@@ -151,6 +150,7 @@ public class GameManager : MonoBehaviour
                 }
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<SpriteRenderer>().sortingOrder += 2;
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = false;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
                 _currentSquirrel--;
 
                 break;
@@ -164,6 +164,7 @@ public class GameManager : MonoBehaviour
     public void Death()
     {
         var playerController = PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>();
+        
         //animation
 
         //playerController.controlEnabled = false;
@@ -172,28 +173,40 @@ public class GameManager : MonoBehaviour
         //playerController.animator.SetTrigger("hurt");
         //playerController.animator.SetBool("dead", true);
 
-
-        _lifes[_currentSquirrel]--;
-        PlayersTransform[_currentSquirrel].gameObject.SetActive(false);
-        switch (_currentSquirrel)
+        if (Atached)
         {
-            case 0:
-                _currentSquirrel++;
-                break;
-            case 1:
-                _currentSquirrel--;
-                break;
-        }
-        if (_lifes[_currentSquirrel] == 0)
-        {
+            PlayersTransform[_currentSquirrel].DetachChildren();
+            foreach (Transform transform in PlayersTransform)
+            {
+                transform.gameObject.SetActive(false);
+            }
             GameOver();
         }
         else
         {
-            PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
-            PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = true;
-            PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-            SwitchCameraTarget();
+            _lifes[_currentSquirrel]--;
+            PlayersTransform[_currentSquirrel].gameObject.SetActive(false);
+            switch (_currentSquirrel)
+            {
+                case 0:
+                    _currentSquirrel++;
+                    break;
+                case 1:
+                    _currentSquirrel--;
+                    break;
+            }
+            if (_lifes[_currentSquirrel] == 0)
+            {
+                GameOver();
+            }
+            else
+            {
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = true;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+                SwitchCameraTarget();
+            }
         }
     }
+
 }
