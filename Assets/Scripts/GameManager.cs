@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour
             Atached = !Atached;
         }
     }
+
     public void Detach(InputAction.CallbackContext context)
     {
         if (!context.canceled) return;

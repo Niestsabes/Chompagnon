@@ -59,22 +59,25 @@ namespace Platformer.Mechanics
             base.Update();
         }
 
+        public void DisactivateControl()
+        {
+
+        }
+
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (!context.performed) return;
-            if (controlEnabled)
-            {
-                move.x = context.ReadValue<Vector2>().x;
-            }
-            else
-            {
-                move.x = 0;
-            }
+            if (!context.performed) { move.x = 0; return; }
+            if (controlEnabled) move.x = context.ReadValue<Vector2>().x;
+            else move.x = 0;
         }
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            if (!context.started) return;
+            if (!context.performed) {
+                stopJump = true;
+                Schedule<PlayerStopJump>().player = this;
+                return;
+            }
             if (controlEnabled)
             {
                 float isJump = context.ReadValue<float>();
