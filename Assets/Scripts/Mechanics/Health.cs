@@ -42,6 +42,7 @@ namespace Platformer.Mechanics
                 var ev = Schedule<HealthIsZero>();
                 ev.health = this;
             }
+            GameManager.Instance.DecreaseHealth();
         }
 
         /// <summary>
