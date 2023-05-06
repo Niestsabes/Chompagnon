@@ -7,9 +7,10 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerController))]
 public abstract class PlayerAbility : MonoBehaviour
 {
-    public void OnFire(InputValue value)
+    public void OnAbility(InputAction.CallbackContext context)
     {
-        if (value.Get<float>() > 0) StartCoroutine(this.Execute());
+        if (!context.started) return;
+        StartCoroutine(this.Execute());
     }
 
     public abstract IEnumerator Execute();

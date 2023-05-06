@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public bool Atached = true;
     public int _currentSquirrel;
     public int[] _lifes;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

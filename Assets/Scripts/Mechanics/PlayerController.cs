@@ -5,7 +5,7 @@ using Platformer.Gameplay;
 using static Platformer.Core.Simulation;
 using Platformer.Model;
 using Platformer.Core;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 namespace Platformer.Mechanics
 {
@@ -55,23 +55,39 @@ namespace Platformer.Mechanics
 
         protected override void Update()
         {
+            UpdateJumpState();
+            base.Update();
+        }
+
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
             if (controlEnabled)
             {
-                move.x = Input.GetAxis("Horizontal");
-                if (jumpState == JumpState.Grounded && Input.GetButtonDown("Jump"))
-                    jumpState = JumpState.PrepareToJump;
-                else if (Input.GetButtonUp("Jump"))
-                {
-                    stopJump = true;
-                    Schedule<PlayerStopJump>().player = this;
-                }
+                move.x = context.ReadValue<Vector2>().x;
             }
             else
             {
                 move.x = 0;
             }
-            UpdateJumpState();
-            base.Update();
+        }
+
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            if (!context.started) return;
+            if (controlEnabled)
+            {
+                float isJump = context.ReadValue<float>();
+                if (jumpState == JumpState.Grounded && isJump > 0)
+                {
+                    jumpState = JumpState.PrepareToJump;
+                }
+                else if (isJump <= 0)
+                {
+                    stopJump = true;
+                    Schedule<PlayerStopJump>().player = this;
+                }
+            }
         }
 
         void UpdateJumpState()
