@@ -5,12 +5,15 @@ using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using Platformer.Model;
 using Platformer.Mechanics;
+using UnityEngine.InputSystem;
+using UnityEditor.Rendering.LookDev;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public GameObject _camManager;
     public Transform[] PlayersTransform;
+    public bool Attached = true;
     public int _currentSquirrel;
     public int[] _lifes;
     private void Awake()
@@ -52,28 +55,80 @@ public class GameManager : MonoBehaviour
         _camManager.GetComponent<CinemachineVirtualCamera>().Follow = PlayersTransform[_currentSquirrel];
         _camManager.GetComponent<CinemachineVirtualCamera>().LookAt = PlayersTransform[_currentSquirrel];
 
+
     }
 
-    public void SwitchSquirrel()
+    public void Detach(InputAction.CallbackContext context)
     {
-        GameObject Squirrel = PlayersTransform[_currentSquirrel].gameObject;
-        Squirrel.GetComponent<SpriteRenderer>().sortingOrder--;
+        if (!context.canceled) return;
+        if (Attached)
+        {
+            if (_currentSquirrel == 1)
+                PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
+            else
+                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
+            PlayersTransform[_currentSquirrel].DetachChildren();
+            Attached = !Attached;
+        }
+        else if (_currentSquirrel == 1 && PlayersTransform[_currentSquirrel].position.x >= PlayersTransform[_currentSquirrel - 1].position.x - 0.25f && PlayersTransform[_currentSquirrel].position.x <= PlayersTransform[_currentSquirrel - 1].position.x + 0.25f)
+        {
+            PlayersTransform[_currentSquirrel - 1].parent = PlayersTransform[_currentSquirrel];
+            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
+            Attached = !Attached;
+        }
+        else if (_currentSquirrel == 0 && PlayersTransform[_currentSquirrel].position.x >= PlayersTransform[_currentSquirrel + 1].position.x - 0.25f && PlayersTransform[_currentSquirrel].position.x <= PlayersTransform[_currentSquirrel + 1].position.x + 0.25f)
+        {
+            PlayersTransform[_currentSquirrel + 1].parent = PlayersTransform[_currentSquirrel];
+            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
+            Attached = !Attached;
+        }
+    }
+
+    public void SwitchSquirrel(InputAction.CallbackContext context)
+    {
+        if (!context.canceled) return;
         switch (_currentSquirrel)
         {
             case 0:
-                PlayersTransform[_currentSquirrel].SetParent(PlayersTransform[_currentSquirrel++]);
-                Vector3 temp = PlayersTransform[_currentSquirrel].position;
-                PlayersTransform[_currentSquirrel].position = PlayersTransform[_currentSquirrel++].position;
-                PlayersTransform[_currentSquirrel++].position = temp;
+                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<SpriteRenderer>().sortingOrder += 1;
+                PlayersTransform[_currentSquirrel].DetachChildren();
+                
+                if (Attached)
+                {
+                    PlayersTransform[_currentSquirrel].SetParent(PlayersTransform[_currentSquirrel + 1]);
+                    PlayersTransform[_currentSquirrel].parent.TransformPoint(PlayersTransform[_currentSquirrel].position.x - 0.2f, PlayersTransform[_currentSquirrel].position.y, 0);
+                }
+                else
+                {
+                    PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = false;
+                    PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
+                }
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = false;
+                _currentSquirrel++;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = true;
+
                 break;
             case 1:
-                PlayersTransform[_currentSquirrel].SetParent(PlayersTransform[_currentSquirrel--]);
-                Vector3 temps = PlayersTransform[_currentSquirrel].position;
-                PlayersTransform[_currentSquirrel].position = PlayersTransform[_currentSquirrel--].position;
-                PlayersTransform[_currentSquirrel--].position = temps;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<SpriteRenderer>().sortingOrder -= 1;
+                PlayersTransform[_currentSquirrel].DetachChildren();
+                if (Attached)
+                {
+                    PlayersTransform[_currentSquirrel].SetParent(PlayersTransform[_currentSquirrel - 1]);
+                    PlayersTransform[_currentSquirrel].parent.TransformPoint(PlayersTransform[_currentSquirrel].position.x - 0.2f, PlayersTransform[_currentSquirrel].position.y, 0);
+                    PlayersTransform[_currentSquirrel - 1].position = new Vector2(PlayersTransform[_currentSquirrel - 1].position.x + 0.2f, PlayersTransform[_currentSquirrel - 1].position.y);
+                }
+                else
+                {
+                    PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = false;
+                    PlayersTransform[_currentSquirrel-1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
+                }
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = false;
+                _currentSquirrel--;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerInput>().enabled = true;
+
                 break;
         }
-
+        SwitchCameraTarget();
     }
 
     public void Death()
