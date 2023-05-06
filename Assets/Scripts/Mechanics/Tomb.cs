@@ -10,34 +10,41 @@ namespace Platformer.Mechanics
         public Gradient colorGradient;
         public float topColorDist;
         public float bottomColorDist;
+        public float triggerDist;
         public Tomb targetTomb;
 
         [Header("GameObject Components")]
         public SpriteRenderer spriteRenderer;
 
-        protected PlayerController[] listPlayerController;
+        protected PlayerAbilityTeleport playerController;
 
         private void Awake()
         {
-            this.listPlayerController = GameObject.FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+            this.playerController = GameObject.FindFirstObjectByType<PlayerAbilityTeleport>();
         }
 
         private void Update()
         {
+            if (this.playerController != null) this.RunChecks();
+        }
+
+        /// <summary>
+        /// Colors this tomb using its distance to the player
+        /// Sets if triggable or not
+        /// </summary>
+        public void RunChecks()
+        {
             float dist = this.ComputeDistance();
-            if (this.targetTomb != null) dist = Mathf.Min(dist, this.targetTomb.ComputeDistance());
-            Color color = this.ComputeTombColor(dist);
-            this.ColorTomb(color);
+            float colorDist = dist;
+            if (this.targetTomb != null) colorDist = Mathf.Min(dist, this.targetTomb.ComputeDistance());
+            this.ColorTomb(this.ComputeTombColor(colorDist));
+            if (this.IsTriggable(dist)) this.playerController.SetFocusedTomb(this);
+            else if (this.playerController.GetFocusedTomb() == this && !this.IsTriggable(dist)) this.playerController.SetFocusedTomb(null);
         }
 
         private float ComputeDistance()
         {
-            float minDist = Mathf.Infinity;
-            foreach (var player in this.listPlayerController) {
-                float dist = (player.transform.position - this.transform.position).magnitude;
-                if (dist < minDist) minDist = dist;
-            }
-            return minDist;
+            return (this.playerController.transform.position - this.transform.position).magnitude;
         }
 
         private Color ComputeTombColor(float dist)
@@ -50,6 +57,11 @@ namespace Platformer.Mechanics
         private void ColorTomb(Color color)
         {
             this.spriteRenderer.color = color;
+        }
+
+        private bool IsTriggable(float dist)
+        {
+            return dist <= this.triggerDist;
         }
     }
 }

@@ -160,5 +160,6 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   topColorDist: 5
   bottomColorDist: 0.5
+  triggerDist: 0.5
   targetTomb: {fileID: 0}
   spriteRenderer: {fileID: 4591812704239775861}
