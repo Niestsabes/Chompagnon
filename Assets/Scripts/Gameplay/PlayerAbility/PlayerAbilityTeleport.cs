@@ -12,7 +12,6 @@ public class PlayerAbilityTeleport : PlayerAbility
     /// </summary>
     public override IEnumerator Execute()
     {
-        Debug.Log(this.focusedTomb);
         if (this.focusedTomb && this.focusedTomb.targetTomb) {
             this.transform.position = this.focusedTomb.targetTomb.transform.position;
         }
@@ -27,7 +26,6 @@ public class PlayerAbilityTeleport : PlayerAbility
     public void SetFocusedTomb(Tomb tomb)
     {
         if (tomb == null) { this.focusedTomb = null; return; }
-        Debug.Log(tomb.gameObject.name);
         this.focusedTomb = tomb;
     }
 }
