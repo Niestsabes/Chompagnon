@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
             PlayersTransform[_currentSquirrel - 1].parent = PlayersTransform[_currentSquirrel];
             PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
             PlayersTransform[_currentSquirrel - 1].position = new Vector3(PlayersTransform[_currentSquirrel].position.x - 0.2f, PlayersTransform[_currentSquirrel].position.y, 0);
-            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
             Atached = !Atached;
         }
         else if (_currentSquirrel == 0 && PlayersTransform[_currentSquirrel].position.x >= PlayersTransform[_currentSquirrel + 1].position.x - 0.25f && PlayersTransform[_currentSquirrel].position.x <= PlayersTransform[_currentSquirrel + 1].position.x + 0.25f)
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
             PlayersTransform[_currentSquirrel + 1].parent = PlayersTransform[_currentSquirrel];
             PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
             PlayersTransform[_currentSquirrel + 1].position = new Vector3(PlayersTransform[_currentSquirrel].position.x - 0.2f, PlayersTransform[_currentSquirrel].position.y, 0);
-            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
             Atached = !Atached;
         }
     }
@@ -97,14 +97,14 @@ public class GameManager : MonoBehaviour
             {
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().move.x = 0;
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
-                PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+                PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
 
             }
             else
             {
                 PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().move.x = 0;
                 PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
-                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PolygonCollider2D>().isTrigger = true;
+                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
 
 
             }
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
 
                 }
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<SpriteRenderer>().sortingOrder -= 2;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PolygonCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PolygonCollider2D>().isTrigger;                
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger;                
                 _currentSquirrel++;
 
                 break;
@@ -162,12 +162,12 @@ public class GameManager : MonoBehaviour
                     PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().move.x = 0;
                 }
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<SpriteRenderer>().sortingOrder += 2;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PolygonCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PolygonCollider2D>().isTrigger;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger;
                 _currentSquirrel--;
 
                 break;
         }
-        PlayersTransform[_currentSquirrel].gameObject.GetComponent<PolygonCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PolygonCollider2D>().isTrigger;
+        PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger;
         PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
         SwitchCameraTarget();
     }
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
             {
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().Alone = true;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PolygonCollider2D>().isTrigger = false;
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = false;
                 PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
                 SwitchCameraTarget();
             }
