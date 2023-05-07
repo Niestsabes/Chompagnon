@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public bool Atached = true;
     public int _currentSquirrel;
     public int[] _lifes;
+    public Transform SpawnPoint;
 
     private void Awake()
     {
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (Transform transform in PlayersTransform)
         {
-            transform.position = Vector3.zero;
+            transform.position = SpawnPoint.position;
             transform.gameObject.SetActive(true);
         }
         if (_currentSquirrel == 0)

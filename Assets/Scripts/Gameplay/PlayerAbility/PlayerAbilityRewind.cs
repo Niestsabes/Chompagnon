@@ -20,6 +20,10 @@ public class PlayerAbilityRewind : PlayerAbility
 
     public override void OnAbility(InputAction.CallbackContext context)
     {
+        if (GameManager.Instance.Atached)
+        {
+            GameManager.Instance.Detach();
+        }
         if (context.started && !this._rewinder.isRewinding) StartCoroutine(this.Execute());
         else if (context.canceled && this._rewinder.isRewinding) this._rewinder.StopRewinding();
     }
