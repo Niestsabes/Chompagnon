@@ -15,10 +15,7 @@ namespace Platformer.Mechanics
     /// </summary>
     public class PlayerController : KinematicObject
     {
-        public int itSwitch = 0;
-        public int itDetach = 0;
-        public bool Second = false;
-        public bool SecondPos = false;
+        public bool isRewinding = false;
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
@@ -68,12 +65,14 @@ namespace Platformer.Mechanics
         public void Switch(InputAction.CallbackContext context)
         {
             if (!context.canceled) return;
+            if (isRewinding) return;
             GameManager.Instance.SwitchSquirrel();
 
         }
         public void Detach(InputAction.CallbackContext context)
         {
             if (!context.canceled) return;
+            if (isRewinding) return;
             GameManager.Instance.Detach();
         }
 

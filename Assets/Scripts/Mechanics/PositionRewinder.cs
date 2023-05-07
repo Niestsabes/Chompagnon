@@ -33,11 +33,13 @@ namespace Platformer.Mechanics
         public IEnumerator Rewind()
         {
             this.StopRecording();
+            gameObject.GetComponent<PlayerController>().isRewinding = true;
             if (this._rigidbody) this._rigidbody.simulated = false;
             this.listStamp.Add(new RewindStamp() { position = this.transform.position, timestamp = this.internTime });
             for (int idx = this.listStamp.Count - 1; idx > 0; idx--) {
                 yield return this.RunRewind(this.listStamp[idx], this.listStamp[idx - 1]);
             }
+            gameObject.GetComponent<PlayerController>().isRewinding = false;
             if (this._rigidbody) this._rigidbody.simulated = true;
         }
 

@@ -48,14 +48,10 @@ public class GameManager : MonoBehaviour
         if (_currentSquirrel == 0)
         {
             PlayersTransform[_currentSquirrel + 1].SetParent(PlayersTransform[_currentSquirrel]);
-            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().Second = true;
-            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().SecondPos = true;
         }
         else
         {
             PlayersTransform[_currentSquirrel - 1].SetParent(PlayersTransform[_currentSquirrel]);
-            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().Second = true;
-            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().SecondPos = true;
         }
         PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
         _lifes[0] = 1;
@@ -145,9 +141,7 @@ public class GameManager : MonoBehaviour
 
                 }
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<SpriteRenderer>().sortingOrder -= 2;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos;
-                
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;                
                 _currentSquirrel++;
 
                 break;
@@ -172,14 +166,11 @@ public class GameManager : MonoBehaviour
                 }
                 PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<SpriteRenderer>().sortingOrder += 2;
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos;
-
                 _currentSquirrel--;
 
                 break;
         }
         PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger;
-        PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().SecondPos;
         PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
         SwitchCameraTarget();
     }
@@ -227,7 +218,6 @@ public class GameManager : MonoBehaviour
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
 
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().Second = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().Second;
                 SwitchCameraTarget();
             }
         }

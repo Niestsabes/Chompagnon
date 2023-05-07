@@ -10,7 +10,6 @@ public abstract class PlayerAbility : MonoBehaviour
     public void OnAbility(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        if (gameObject.GetComponent<PlayerController>().SecondPos) return;
         StartCoroutine(this.Execute());
     }
 
