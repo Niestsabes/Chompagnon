@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ba6e5230808204b8eff1777290ea59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleParfab: {fileID: 433581913111494030, guid: 42c3a956de2b7204794f2794dd76410e,
+    type: 3}
 --- !u!114 &1267945432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,3 +327,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b82668c17e4464b9e2138b6343235d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleParfab: {fileID: 81429842361549363, guid: 6c5354cb7ffa9b945bf25f19c8323673,
+    type: 3}
