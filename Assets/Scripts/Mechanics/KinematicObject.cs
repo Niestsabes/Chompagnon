@@ -28,7 +28,11 @@ namespace Platformer.Mechanics
         /// Is the entity currently sitting on a surface?
         /// </summary>
         /// <value></value>
-        public bool IsGrounded { get; private set; }
+        public bool onPlatform;
+        public Vector2 platformVelocity;
+
+        public bool _isGroundedInternal;
+        public bool IsGrounded { get => _isGroundedInternal || onPlatform; set { _isGroundedInternal = value; } }
 
         protected Vector2 targetVelocity;
         protected Vector2 groundNormal;
@@ -102,14 +106,17 @@ namespace Platformer.Mechanics
         protected virtual void FixedUpdate()
         {
             //if already falling, fall faster than the jump speed, otherwise use normal gravity.
-            if (velocity.y < 0)
-                velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
-            else
-                velocity += Physics2D.gravity * Time.deltaTime;
-
+            if (platformVelocity.y == 0) {
+                if (velocity.y < 0)
+                    velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
+                else if (!onPlatform)
+                    velocity += Physics2D.gravity * Time.deltaTime;
+            }
+            else {
+                body.position = body.position + platformVelocity * Time.deltaTime;
+            }
             velocity.x = targetVelocity.x;
-
-            IsGrounded = false;
+            IsGrounded = onPlatform;
 
             var deltaPosition = velocity * Time.deltaTime;
 
