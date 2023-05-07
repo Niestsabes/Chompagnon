@@ -7,12 +7,12 @@ public class HomeSceneManager : MonoBehaviour
 {
     public void NavigateToGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        UISceneTransition.instance.CloseToScene("SampleScene");
     }
 
     public void NavigateToGallery()
     {
-        SceneManager.LoadScene("GalleryScene");
+        UISceneTransition.instance.CloseToScene("GalleryScene");
     }
 
     public void QuitGame()
