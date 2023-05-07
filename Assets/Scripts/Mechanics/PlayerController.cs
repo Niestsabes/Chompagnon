@@ -16,6 +16,7 @@ namespace Platformer.Mechanics
     public class PlayerController : KinematicObject
     {
         public bool isRewinding = false;
+        public bool Alone = false;
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
@@ -66,6 +67,7 @@ namespace Platformer.Mechanics
         {
             if (!context.canceled) return;
             if (isRewinding) return;
+            if (Alone) return;
             GameManager.Instance.SwitchSquirrel();
 
         }
@@ -73,6 +75,7 @@ namespace Platformer.Mechanics
         {
             if (!context.canceled) return;
             if (isRewinding) return;
+            if (Alone) return;
             GameManager.Instance.Detach();
         }
 
