@@ -14,16 +14,18 @@ namespace Platformer.Mechanics
         public TombObject targetTomb;
 
         [Header("GameObject Components")]
-        public SpriteRenderer spriteRenderer;
+        public SpriteRenderer _flameSprite;
+        public ParticleSystem _particleSystem;
 
         protected PlayerAbilityTeleport playerController;
 
-        private void Awake()
+        void Awake()
         {
             this.playerController = GameObject.FindFirstObjectByType<PlayerAbilityTeleport>();
+            this._particleSystem.Stop();
         }
 
-        private void Update()
+        void Update()
         {
             if (this.playerController != null) this.RunChecks();
         }
@@ -38,8 +40,8 @@ namespace Platformer.Mechanics
             float colorDist = dist;
             if (this.targetTomb != null) colorDist = Mathf.Min(dist, this.targetTomb.ComputeDistance());
             this.ColorTomb(this.ComputeTombColor(colorDist));
-            if (this.IsTriggable(dist)) this.playerController.SetFocusedTomb(this);
-            else if (this.playerController.GetFocusedTomb() == this && !this.IsTriggable(dist)) this.playerController.SetFocusedTomb(null);
+            if (this.IsTriggable(dist) && this.playerController.GetFocusedTomb() != this) this.SetAsTriggable(true);
+            else if (this.playerController.GetFocusedTomb() == this && !this.IsTriggable(dist)) this.SetAsTriggable(false);
         }
 
         private float ComputeDistance()
@@ -56,12 +58,23 @@ namespace Platformer.Mechanics
 
         private void ColorTomb(Color color)
         {
-            this.spriteRenderer.color = color;
+            this._flameSprite.color = color;
         }
 
         private bool IsTriggable(float dist)
         {
             return dist <= this.triggerDist;
+        }
+
+        private void SetAsTriggable(bool isTriggable)
+        {
+            if (isTriggable) {
+                this.playerController.SetFocusedTomb(this);
+                this._particleSystem.Play();
+            } else {
+                this.playerController.SetFocusedTomb(null);
+                this._particleSystem.Stop();
+            }
         }
     }
 }
