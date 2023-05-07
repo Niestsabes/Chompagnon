@@ -66,7 +66,7 @@ namespace Platformer.Mechanics
         public void Switch(InputAction.CallbackContext context)
         {
             if (!context.canceled) return;
-            if (isRewinding) return;
+            if (GetComponent<PositionRewinder>() && GetComponent<PositionRewinder>().isRewinding) return;
             if (Alone) return;
             GameManager.Instance.SwitchSquirrel();
 
@@ -74,7 +74,7 @@ namespace Platformer.Mechanics
         public void Detach(InputAction.CallbackContext context)
         {
             if (!context.canceled) return;
-            if (isRewinding) return;
+            if (GetComponent<PositionRewinder>() && GetComponent<PositionRewinder>().isRewinding) return;
             if (Alone) return;
             GameManager.Instance.Detach();
         }
