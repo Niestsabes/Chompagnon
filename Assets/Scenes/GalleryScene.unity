@@ -1288,7 +1288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minCoordinates: {x: 0, y: -2000}
   maxCoordinates: {x: 3000, y: 0}
-  moveSpeed: 10
+  moveSpeed: 0.5
 --- !u!114 &807840860
 MonoBehaviour:
   m_ObjectHideFlags: 0
