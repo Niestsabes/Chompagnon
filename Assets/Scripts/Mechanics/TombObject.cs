@@ -21,13 +21,17 @@ namespace Platformer.Mechanics
 
         void Awake()
         {
-            this.playerController = GameObject.FindFirstObjectByType<PlayerAbilityTeleport>();
             this._particleSystem.Stop();
+        }
+
+        void Start()
+        {
+            this.playerController = GameManager.Instance.PlayersTransform[0].GetComponent<PlayerAbilityTeleport>();
         }
 
         void Update()
         {
-            if (this.playerController != null) this.RunChecks();
+            if (this.playerController != null) this.RunChecks();   
         }
 
         /// <summary>
@@ -40,13 +44,17 @@ namespace Platformer.Mechanics
             float colorDist = dist;
             if (this.targetTomb != null) colorDist = Mathf.Min(dist, this.targetTomb.ComputeDistance());
             this.ColorTomb(this.ComputeTombColor(colorDist));
-            if (this.IsTriggable(dist) && this.playerController.GetFocusedTomb() != this) this.SetAsTriggable(true);
+             if (this.IsTriggable(dist) && this.playerController.GetFocusedTomb() != this) this.SetAsTriggable(true);
             else if (this.playerController.GetFocusedTomb() == this && !this.IsTriggable(dist)) this.SetAsTriggable(false);
         }
 
         private float ComputeDistance()
         {
-            return (this.playerController.transform.position - this.transform.position).magnitude;
+            if(this.playerController != null)
+            {
+                return (this.playerController.transform.position - this.transform.position).magnitude;
+            }
+            return 0;
         }
 
         private Color ComputeTombColor(float dist)

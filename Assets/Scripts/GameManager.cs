@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
     public bool Atached = true;
     public int _currentSquirrel;
     public int[] _lifes;
+    public Transform SpawnPoint;
+    public GameObject TombPrefab;
+    public List<GameObject> TombGroup;
 
     private void Awake()
     {
@@ -40,9 +43,10 @@ public class GameManager : MonoBehaviour
 
     public void Spawn()
     {
+        TombGroup.Clear();
         foreach (Transform transform in PlayersTransform)
         {
-            transform.position = Vector3.zero;
+            transform.position = SpawnPoint.position;
             transform.gameObject.SetActive(true);
         }
         if (_currentSquirrel == 0)
@@ -125,7 +129,7 @@ public class GameManager : MonoBehaviour
         switch (_currentSquirrel)
         {
             case 0:
-              
+
 
                 if (Atached)
                 {
@@ -142,7 +146,7 @@ public class GameManager : MonoBehaviour
 
                 }
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<SpriteRenderer>().sortingOrder -= 2;
-                PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger;                
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = !PlayersTransform[_currentSquirrel].gameObject.GetComponent<Collider2D>().isTrigger;
                 _currentSquirrel++;
 
                 break;
@@ -197,6 +201,12 @@ public class GameManager : MonoBehaviour
         else
         {
             _lifes[_currentSquirrel]--;
+            TombGroup.Add(Instantiate(TombPrefab, PlayersTransform[_currentSquirrel].position, Quaternion.Euler(0, 0, 0)));
+            foreach (GameObject tomb in TombGroup)
+            {
+                tomb.SetActive(true);
+                tomb.GetComponent<TombObject>().targetTomb = null;
+            }
             PlayersTransform[_currentSquirrel].gameObject.SetActive(false);
             PlayersTransform[_currentSquirrel].parent.DetachChildren();
             switch (_currentSquirrel)
@@ -210,6 +220,8 @@ public class GameManager : MonoBehaviour
             }
             if (_lifes[_currentSquirrel] == 0)
             {
+                TombGroup[0].GetComponent<TombObject>().targetTomb = TombGroup[1].GetComponent<TombObject>();
+                TombGroup[1].GetComponent<TombObject>().targetTomb = TombGroup[0].GetComponent<TombObject>();
                 GameOver();
             }
             else
@@ -220,6 +232,7 @@ public class GameManager : MonoBehaviour
                 PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
                 SwitchCameraTarget();
             }
+            
         }
     }
 

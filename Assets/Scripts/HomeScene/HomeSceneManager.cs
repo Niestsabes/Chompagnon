@@ -10,6 +10,11 @@ public class HomeSceneManager : MonoBehaviour
         SceneManager.LoadScene("SampleScene");
     }
 
+    public void NavigateToGallery()
+    {
+        SceneManager.LoadScene("GalleryScene");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
