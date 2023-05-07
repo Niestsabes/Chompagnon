@@ -39,6 +39,6 @@ public class GalleryController : MonoBehaviour
 
     public void OnCancel(InputValue value)
     {
-        SceneManager.LoadScene("HomeScene");
+        UISceneTransition.instance.CloseToScene("HomeScene");
     }
 }
