@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Platformer.View
@@ -8,21 +10,19 @@ namespace Platformer.View
     /// </summary>
     public class ParallaxLayer : MonoBehaviour
     {
-        /// <summary>
-        /// Movement of the layer is scaled by this value.
-        /// </summary>
         public Vector3 movementScale = Vector3.one;
-
-        Transform _camera;
+        public Vector3 offset = Vector3.zero;
+        private Transform _camera;
 
         void Awake()
         {
-            _camera = Camera.main.transform;
+            this._camera = Camera.main.transform;
         }
 
-        void LateUpdate()
+        void Update()
         {
-            transform.position = Vector3.Scale(_camera.position, movementScale);
+            var target = Vector3.Scale(_camera.position, movementScale) + offset;
+            transform.position = target;
         }
 
     }

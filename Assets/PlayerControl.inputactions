@@ -250,22 +250,22 @@
                 },
                 {
                     "name": "",
-                    "id": "80e63ac0-f177-49ec-9150-5045d9ac207c",
-                    "path": "<Keyboard>/#(X)",
+                    "id": "ed3fd0a4-68e1-46da-8f56-d45ce189ebee",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "Detach",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "ed3fd0a4-68e1-46da-8f56-d45ce189ebee",
-                    "path": "",
+                    "id": "80e63ac0-f177-49ec-9150-5045d9ac207c",
+                    "path": "<Keyboard>/#(X)",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Keyboard&Mouse",
                     "action": "Detach",
                     "isComposite": false,
                     "isPartOfComposite": false
