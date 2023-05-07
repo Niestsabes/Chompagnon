@@ -15,10 +15,7 @@ namespace Platformer.Mechanics
     /// </summary>
     public class PlayerController : KinematicObject
     {
-        public int itSwitch = 0;
-        public int itDetach = 0;
-        public bool Second = false;
-        public bool SecondPos = false;
+        public bool isRewinding = false;
         public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
@@ -68,27 +65,58 @@ namespace Platformer.Mechanics
         public void Switch(InputAction.CallbackContext context)
         {
             if (!context.canceled) return;
-            if (Second) return;
+            if (isRewinding) return;
             GameManager.Instance.SwitchSquirrel();
-            itSwitch++;
-            if (itSwitch != 0) { itSwitch = 0; return; }
 
         }
         public void Detach(InputAction.CallbackContext context)
         {
             if (!context.canceled) return;
-            if (Second) return;
-
+            if (isRewinding) return;
             GameManager.Instance.Detach();
-            itDetach++;
-            if (itDetach != 0) { itDetach = 0; return; }
         }
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (!context.performed ) { move.x = 0; return; }
-            if (controlEnabled) move.x = context.ReadValue<Vector2>().x;
-            else move.x = 0;
+            Transform[] gameObjects = gameObject.GetComponentsInChildren<Transform>();
+            if (!context.performed ) 
+            { 
+                move.x = 0;
+                
+                foreach (Transform player in gameObjects)
+                {
+                    if (player.name != gameObject.name)
+                        player.GetComponentInChildren<PlayerController>().MoveSecond(Vector2.zero);
+                }
+                return;
+                
+            }
+            if (controlEnabled)
+            {
+                move.x = context.ReadValue<Vector2>().x;
+                foreach (Transform player in gameObjects)
+                {
+                    if (player.name != gameObject.name)
+                        player.GetComponent<PlayerController>().MoveSecond(context.ReadValue<Vector2>());
+                }
+                
+
+            }
+            else
+            {
+                move.x = 0;
+                foreach (Transform player in gameObjects)
+                {
+                    if (player.name != gameObject.name)
+                        player.GetComponentInChildren<PlayerController>().MoveSecond(Vector2.zero);
+                }
+            }
+
+        }
+
+        public void MoveSecond(Vector2 value)
+        {
+            move.x = value.x;
         }
 
         public void OnJump(InputAction.CallbackContext context)
