@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
-
+                PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().Alone = true;
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
                 PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
                 SwitchCameraTarget();
