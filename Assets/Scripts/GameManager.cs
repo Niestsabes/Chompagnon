@@ -178,8 +178,6 @@ public class GameManager : MonoBehaviour
 
     public void Death()
     {
-        var playerController = PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>();
-
         //animation
 
         //playerController.controlEnabled = false;
