@@ -23,6 +23,10 @@ public class PlayerAbilityTeleport : PlayerAbility
     public override IEnumerator Execute()
     {
         if (this.focusedTomb && this.focusedTomb.targetTomb) {
+            if (GameManager.Instance.Atached)
+            {
+                GameManager.Instance.Detach();
+            }
             this.InstantiateParticuleEffect();
             this.transform.position = this.focusedTomb.targetTomb.transform.position;
             this.InstantiateParticuleEffect();

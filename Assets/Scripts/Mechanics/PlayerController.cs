@@ -117,6 +117,11 @@ namespace Platformer.Mechanics
 
         }
 
+        public void MovingPlatform(Vector2 movement)
+        {
+            move = movement;
+        }
+
         public void MoveSecond(Vector2 value)
         {
             move.x = value.x;
