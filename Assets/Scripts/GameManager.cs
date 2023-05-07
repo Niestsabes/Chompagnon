@@ -119,12 +119,13 @@ public class GameManager : MonoBehaviour
     {
         Vector3 temp;
         //if (_lifes[_currentSquirrel])
+        temp = PlayersTransform[_currentSquirrel].position;
+        PlayersTransform[_currentSquirrel].DetachChildren();
+        PlayersTransform[_currentSquirrel].parent.DetachChildren();
         switch (_currentSquirrel)
         {
             case 0:
-                temp = PlayersTransform[_currentSquirrel].position;
-                PlayersTransform[_currentSquirrel].DetachChildren();
-                PlayersTransform[_currentSquirrel].parent.DetachChildren();
+              
 
                 if (Atached)
                 {
@@ -146,10 +147,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case 1:
-
-                temp = PlayersTransform[_currentSquirrel].position;
-                PlayersTransform[_currentSquirrel].DetachChildren();
-                PlayersTransform[_currentSquirrel].parent.DetachChildren();
                 if (Atached)
                 {
 
@@ -190,6 +187,7 @@ public class GameManager : MonoBehaviour
         if (Atached)
         {
             PlayersTransform[_currentSquirrel].DetachChildren();
+            PlayersTransform[_currentSquirrel].parent.DetachChildren();
             foreach (Transform transform in PlayersTransform)
             {
                 transform.gameObject.SetActive(false);
@@ -200,6 +198,7 @@ public class GameManager : MonoBehaviour
         {
             _lifes[_currentSquirrel]--;
             PlayersTransform[_currentSquirrel].gameObject.SetActive(false);
+            PlayersTransform[_currentSquirrel].parent.DetachChildren();
             switch (_currentSquirrel)
             {
                 case 0:
@@ -218,6 +217,7 @@ public class GameManager : MonoBehaviour
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
 
                 PlayersTransform[_currentSquirrel].gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+                PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
                 SwitchCameraTarget();
             }
         }
