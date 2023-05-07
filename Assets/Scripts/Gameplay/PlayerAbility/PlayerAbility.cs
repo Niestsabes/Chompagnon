@@ -7,11 +7,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerController))]
 public abstract class PlayerAbility : MonoBehaviour
 {
-    public void OnAbility(InputAction.CallbackContext context)
-    {
-        if (!context.started) return;
-        StartCoroutine(this.Execute());
-    }
+    [Header("Prefabs")]
+    public GameObject particleParfab;
+
+    public abstract void OnAbility(InputAction.CallbackContext context);
 
     public abstract IEnumerator Execute();
+
+    protected GameObject InstantiateParticuleEffect()
+    {
+        return GameObject.Instantiate(this.particleParfab, this.transform.position, this.transform.rotation);
+    }
 }

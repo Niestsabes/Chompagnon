@@ -8,15 +8,18 @@ namespace Platformer.Mechanics
     {
         private readonly float RECORD_DELAY = 0.25f;
         private readonly float MAX_RECORD_TIME = 10;
-        private readonly float REWIND_SPEED_RATIO = 1f;
+        private readonly float REWIND_SPEED_RATIO = 2f;
         private List<RewindStamp> listStamp = new List<RewindStamp>();
-        private bool isRecording = false;
+        public bool isRecording { get; protected set; } = false;
+        public bool isRewinding { get; protected set; } = false;
         private float internTime = 0;
         private Rigidbody2D _rigidbody;
+        private Collider2D _collider;
 
         void Awake()
         {
             this._rigidbody = this.GetComponent<Rigidbody2D>();
+            this._collider = this.GetComponent<Collider2D>();
         }
 
         public void Record()
@@ -33,14 +36,20 @@ namespace Platformer.Mechanics
         public IEnumerator Rewind()
         {
             this.StopRecording();
-            gameObject.GetComponent<PlayerController>().isRewinding = true;
-            if (this._rigidbody) this._rigidbody.simulated = false;
+            this.isRewinding = true;
+            this.SetObjectInteractionEnabled(false);
             this.listStamp.Add(new RewindStamp() { position = this.transform.position, timestamp = this.internTime });
             for (int idx = this.listStamp.Count - 1; idx > 0; idx--) {
+                if (!this.isRewinding) break;
                 yield return this.RunRewind(this.listStamp[idx], this.listStamp[idx - 1]);
             }
-            gameObject.GetComponent<PlayerController>().isRewinding = false;
-            if (this._rigidbody) this._rigidbody.simulated = true;
+            this.isRewinding = false;
+            this.SetObjectInteractionEnabled(true);
+        }
+
+        public void StopRewinding()
+        {
+            this.isRewinding = false;
         }
 
         private IEnumerator RunRecording()
@@ -74,11 +83,19 @@ namespace Platformer.Mechanics
             float rewindTime = 0;
             float endRewindTime = newestStamp.timestamp - oldestStamp.timestamp;
             while (rewindTime < endRewindTime) {
+                if (!this.isRewinding) break;
                 rewindTime += Time.deltaTime * this.REWIND_SPEED_RATIO;
                 this.transform.position = Vector3.Lerp(newestStamp.position, oldestStamp.position, rewindTime / endRewindTime);
                 yield return null;
             }
-            this.transform.position = oldestStamp.position;
+            if (this.isRewinding) this.transform.position = oldestStamp.position;
+        }
+
+        private void SetObjectInteractionEnabled(bool isEnabled)
+        {
+            gameObject.GetComponent<PlayerController>().isRewinding = isEnabled;
+            if (this._rigidbody) this._rigidbody.simulated = isEnabled;
+            if (this._collider) this._collider.enabled = isEnabled;
         }
     }
 
