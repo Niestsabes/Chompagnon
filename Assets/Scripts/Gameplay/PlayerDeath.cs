@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerDeath : MonoBehaviour
 {
     PlayerController playerController;
+    public AudioClip Death;
     public void Start()
     {
        playerController = GetComponent<PlayerController>();
@@ -16,6 +17,7 @@ public class PlayerDeath : MonoBehaviour
     IEnumerator DelayDeath()
     {
         playerController.animator.SetTrigger("Dead");
+        playerController.audioSource.PlayOneShot(Death);
         yield return null;
         yield return new WaitUntil(() => playerController.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
         

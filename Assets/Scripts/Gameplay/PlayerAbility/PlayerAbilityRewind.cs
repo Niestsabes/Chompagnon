@@ -13,6 +13,7 @@ public class PlayerAbilityRewind : PlayerAbility
     [Header("Settings")]
     [SerializeField] protected float _maxRecordTime = 10;
     protected PositionRewinder _rewinder;
+    public AudioClip Rewind;
 
     void Awake()
     {
@@ -33,6 +34,7 @@ public class PlayerAbilityRewind : PlayerAbility
 
     public override IEnumerator Execute()
     {
+        GetComponent<PlayerController>().audioSource.PlayOneShot(Rewind);
         this.PlayForegroundEffect();
         this.InstantiateParticuleEffect();
         yield return this._rewinder.Rewind();

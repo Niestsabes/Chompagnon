@@ -60,8 +60,8 @@ MonoBehaviour:
   isRewinding: 0
   Alone: 0
   jumpAudio: {fileID: 8300000, guid: 67975c08d56ceb147bad38572d805aa8, type: 3}
-  respawnAudio: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848, type: 3}
-  ouchAudio: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7, type: 3}
+  respawnAudio: {fileID: 8300000, guid: c54d62de586447c48aa716b1aa767dd2, type: 3}
+  ouchAudio: {fileID: 8300000, guid: 0b96dae8bca17ca409a2d5f2ae00b6f3, type: 3}
   maxSpeed: 5
   jumpTakeOffSpeed: 10
   offSet: 0
@@ -312,4 +312,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b144adbcc33064b868df6d6c17ab5f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerFeetPos: {x: -4.0971766, y: 2.958351}
+  Death: {fileID: 8300000, guid: c54d62de586447c48aa716b1aa767dd2, type: 3}

@@ -28,6 +28,6 @@ public class PlayersManager : MonoBehaviour
     public void Ability(InputAction.CallbackContext context)
     {
         if (!gameObject.GetComponentInChildren<PlayerController>().controlEnabled) return;
-            gameObject.GetComponentInChildren<PlayerAbility>().OnAbility(context);
+        gameObject.GetComponentInChildren<PlayerAbility>().OnAbility(context);
     }
 }

@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 public class PlayerAbilityTeleport : PlayerAbility
 {
     private TombObject focusedTomb;
+    public AudioClip Tp;
 
     public override void OnAbility(InputAction.CallbackContext context)
     {
@@ -22,6 +23,7 @@ public class PlayerAbilityTeleport : PlayerAbility
     /// </summary>
     public override IEnumerator Execute()
     {
+        GetComponent<PlayerController>().audioSource.PlayOneShot(Tp);
         if (this.focusedTomb && this.focusedTomb.targetTomb) {
             if (GameManager.Instance.Atached)
             {
@@ -29,6 +31,7 @@ public class PlayerAbilityTeleport : PlayerAbility
             }
             this.PlayForegroundEffect();
             this.InstantiateParticuleEffect();
+
             this.transform.position = this.focusedTomb.targetTomb.TombTpSpawnPoint;
             this.InstantiateParticuleEffect();
             yield return new WaitForSeconds(0.4f);
