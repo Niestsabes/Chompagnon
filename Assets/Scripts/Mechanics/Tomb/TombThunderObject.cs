@@ -13,12 +13,14 @@ public class TombThunderObject : MonoBehaviour
     [SerializeField] private ParticleSystem _particleSystem;
 
     private Animator _animator;
+    private AudioSource _audioSource;
     private float _cooldown;
     private PlayerController[] _listPlayer;
 
     void Awake()
     {
         this._animator = this.GetComponent<Animator>();
+        this._audioSource = this.GetComponent<AudioSource>();
         this._listPlayer = GameObject.FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
     }
 
@@ -47,5 +49,6 @@ public class TombThunderObject : MonoBehaviour
     public void Explode()
     {
         this._particleSystem.Play();
+        this._audioSource.Play();
     }
 }
