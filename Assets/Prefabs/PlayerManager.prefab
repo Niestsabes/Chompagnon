@@ -291,6 +291,7 @@ MonoBehaviour:
     type: 3}
   _backgroundColor: {r: 0.10808115, g: 0.3106208, b: 0.6226415, a: 0.8627451}
   _foregroundColor: {r: 0.3150943, g: 0.58620256, b: 1, a: 0.47058824}
+  Tp: {fileID: 8300000, guid: 3113884f41a2894459a8a5691018f18d, type: 3}
 --- !u!1001 &7329539025576918248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -398,6 +399,7 @@ MonoBehaviour:
   _backgroundColor: {r: 0.25490198, g: 0, b: 0.34117648, a: 0.8627451}
   _foregroundColor: {r: 0.81960785, g: 0, b: 1, a: 0.47058824}
   _maxRecordTime: 60
+  Rewind: {fileID: 8300000, guid: 456b2e26f50d2644da6dffcb9efa0396, type: 3}
 --- !u!114 &4906697023856133927
 MonoBehaviour:
   m_ObjectHideFlags: 0

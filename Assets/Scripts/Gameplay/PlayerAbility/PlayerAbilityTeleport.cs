@@ -23,7 +23,10 @@ public class PlayerAbilityTeleport : PlayerAbility
     /// </summary>
     public override IEnumerator Execute()
     {
-        GetComponent<PlayerController>().audioSource.PlayOneShot(Tp);
+        if (!GetComponent<PlayerController>().audioSource.isPlaying)
+        {
+            GetComponent<PlayerController>().audioSource.PlayOneShot(Tp);
+        }
         if (this.focusedTomb && this.focusedTomb.targetTomb) {
             if (GameManager.Instance.Atached)
             {

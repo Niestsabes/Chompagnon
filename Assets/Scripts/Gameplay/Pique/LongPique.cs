@@ -30,11 +30,9 @@ public class LongPique : Pique
 
     IEnumerator StartSong()
     {
-        _time += Time.deltaTime;
-        if (_time >= _timeOffSet && _time <= _maxTime)
-        {
-            GetComponent<AudioSource>().Play();
-        }
+        yield return new WaitForSeconds(0.8f);
+        gameObject.GetComponent<AudioSource>().clip = PiqueMovement;
+        gameObject.GetComponent<AudioSource>().Play();
         yield return null;
     }
     private void Update()
@@ -58,7 +56,6 @@ public class LongPique : Pique
             {
                 Up = true;
                 _lastUp = Time.time;
-                GetComponent<AudioSource>().PlayOneShot(PiqueMovement);
             }
             if (Up && Time.time >= _timeOffsetSinceUp + _lastUp)
                 transform.localPosition += new Vector3(0, _speed * Time.deltaTime, 0);

@@ -34,7 +34,10 @@ public class PlayerAbilityRewind : PlayerAbility
 
     public override IEnumerator Execute()
     {
-        GetComponent<PlayerController>().audioSource.PlayOneShot(Rewind);
+        if (!GetComponent<PlayerController>().audioSource.isPlaying)
+        {
+            GetComponent<PlayerController>().audioSource.PlayOneShot(Rewind);
+        }
         this.PlayForegroundEffect();
         this.InstantiateParticuleEffect();
         yield return this._rewinder.Rewind();

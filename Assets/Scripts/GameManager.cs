@@ -4,11 +4,10 @@ using UnityEngine;
 using Platformer.Mechanics;
 using System.Drawing;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
     public static GameManager Instance { get; private set; }
-    public GameObject _camManager;
+    public GameObject[] _camManagers;
     public Transform[] PlayersTransform;
     public GameObject GlobalPlayerParent;
     public bool Atached = true;
@@ -22,40 +21,32 @@ public class GameManager : MonoBehaviour
     public float maxAttachDistance = 0.25f;
     public Vector3 attachOffset = new Vector3(-0.3f, 0f, 0f);
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
+    private void Awake() {
+        if (Instance != null && Instance != this) {
             Destroy(this);
         }
-        else
-        {
+        else {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         Spawn();
     }
 
-    public void GameOver()
-    {
+    public void GameOver() {
         Spawn();
     }
 
 
-    public void Spawn()
-    {
+    public void Spawn() {
         TombGroup.Clear();
-        foreach (Transform transform in PlayersTransform)
-        {
+        foreach (Transform transform in PlayersTransform) {
             transform.position = SpawnPoint.position;
             transform.gameObject.SetActive(true);
         }
-        if (_currentSquirrel == 0)
-        {
+        if (_currentSquirrel == 0) {
             PlayersTransform[_currentSquirrel + 1].SetParent(PlayersTransform[_currentSquirrel]);
         }
-        else
-        {
+        else {
             PlayersTransform[_currentSquirrel - 1].SetParent(PlayersTransform[_currentSquirrel]);
         }
         PlayersTransform[_currentSquirrel].SetParent(GlobalPlayerParent.transform);
@@ -66,12 +57,11 @@ public class GameManager : MonoBehaviour
         Atached = true;
     }
 
-    public void SwitchCameraTarget()
-    {
-        _camManager.GetComponent<CinemachineVirtualCamera>().Follow = PlayersTransform[_currentSquirrel];
-        _camManager.GetComponent<CinemachineVirtualCamera>().LookAt = PlayersTransform[_currentSquirrel];
-
-
+    public void SwitchCameraTarget() {
+        foreach (var _camManager in _camManagers) { 
+            _camManager.GetComponent<CinemachineVirtualCamera>().Follow = PlayersTransform[_currentSquirrel];
+            _camManager.GetComponent<CinemachineVirtualCamera>().LookAt = PlayersTransform[_currentSquirrel];
+        }
     }
 
     public void Atach()
