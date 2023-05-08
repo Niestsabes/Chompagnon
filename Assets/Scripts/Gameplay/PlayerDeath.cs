@@ -27,16 +27,22 @@ public class PlayerDeath : MonoBehaviour
         
     }
 
-   public void PlayerDeathAnimAndSound()
+    IEnumerator DelayDeathForSecondChar()
+    {
+        playerController.animator.SetTrigger("Dead");
+        yield return null;
+    }
+
+    public void PlayerDeathAnimAndSound()
     {
         playerController.controlEnabled = false;
         if (playerController.audioSource && playerController.ouchAudio)
             playerController.audioSource.PlayOneShot(playerController.ouchAudio);
-        PlayerDeathAnim();
+        StartCoroutine(DelayDeath());
     }
 
     public void PlayerDeathAnim()
     {
-        StartCoroutine(DelayDeath());
+        StartCoroutine(DelayDeathForSecondChar());
     }
 }
