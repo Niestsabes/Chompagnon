@@ -20,33 +20,44 @@ public class PoulieAnim : MonoBehaviour
             wa.rotateLeft = activate;
         }
 
-        activateLeft = true;
+        activateLeft = activate;
     }
     public void SetActivateRight(bool activate) {
         foreach (var wa in wheels) {
             wa.rotateRight = activate;
         }
 
-        activateRight = true;
+        activateRight = activate;
     }
 
 
     public void Update() {
+        float actualMoveSpeed = 0;
         if (activateLeft != activateRight) {
             if (activateLeft) {
                 currTime -= Time.deltaTime;
+
             }
             else {
                 currTime += Time.deltaTime;
             }
 
             currTime = Mathf.Clamp(currTime, minTime, maxTime);
-            foreach (var rope in ropeLeft) {
-                rope.SetSize(-currTime * moveSpeed);
+
+            if (currTime > minTime && currTime < maxTime) {
+                if (activateLeft) {
+                    actualMoveSpeed = -moveSpeed;
+                }
+                else {
+                    actualMoveSpeed = moveSpeed;
+                }
             }
-            foreach (var rope in ropeRight) {
-                rope.SetSize(currTime * moveSpeed);
-            }
+        }
+        foreach (var rope in ropeLeft) {
+            rope.SetSize(-currTime * moveSpeed, -actualMoveSpeed);
+        }
+        foreach (var rope in ropeRight) {
+            rope.SetSize(currTime * moveSpeed, actualMoveSpeed);
         }
     }
 }

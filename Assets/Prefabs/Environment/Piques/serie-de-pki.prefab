@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3326801232782438570}
   - component: {fileID: 7770307352032088914}
   - component: {fileID: 6793171555256929163}
+  - component: {fileID: -1306642286302521337}
   m_Layer: 0
   m_Name: serie-de-pki
   m_TagString: Untagged
@@ -124,6 +125,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ac71cb41525cf429494043393a60ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
-  _maxdist: 0
+  _speed: 6
+  _maxdist: 3
   _timeOffSet: 0
+  _maxTime: Infinity
+  _timeOffsetSinceUp: 0
+--- !u!114 &-1306642286302521337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2580959831677752937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16c8d4ae44dab24ea520cd193516026, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
