@@ -43,12 +43,12 @@ public class TombThunderObject : MonoBehaviour
     public void Hit()
     {
         this._animator.SetTrigger("trigger");
+        this._audioSource.Play();
         this._cooldown = this._minReloadTime * (1 + Random.value * 0.5f);
     }
 
     public void Explode()
     {
         this._particleSystem.Play();
-        this._audioSource.Play();
     }
 }
