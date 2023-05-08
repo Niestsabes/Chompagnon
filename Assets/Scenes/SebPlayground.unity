@@ -1988,18 +1988,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1488698763}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1524069241 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 820569882404089409, guid: 13158e7629d55d24e9d881aa659d6f67,
-    type: 3}
-  m_PrefabInstance: {fileID: 1855925513}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 709ee11994a2f44658e5fc9887c45081, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1531557581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2679,9 +2667,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model:
-    virtualCamera: {fileID: 1946717924}
-    player: {fileID: 1524069241}
-    spawnPoint: {fileID: 421228357}
+    virtualCamera: {fileID: 0}
+    player: {fileID: 0}
+    spawnPoint: {fileID: 0}
     jumpModifier: 0.9
     jumpDeceleration: 0
 --- !u!4 &1754240608
