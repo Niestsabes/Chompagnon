@@ -146,8 +146,7 @@ namespace Platformer.Mechanics
         void UpdateJumpState()
         {
             jump = false;
-            switch (jumpState)
-            {
+            switch (jumpState) {
                 case JumpState.PrepareToJump:
                     jumpState = JumpState.Jumping;
                     jump = true;
@@ -155,8 +154,8 @@ namespace Platformer.Mechanics
                     break;
                 case JumpState.Jumping:
                     onPlatform = false;
-                    if (!IsGrounded)
-                    {
+                    platformVelocity = new Vector2(0f, 0f);
+                    if (!_isGroundedInternal) {
                         Schedule<PlayerJumped>().player = this;
                         jumpState = JumpState.InFlight;
                     }
