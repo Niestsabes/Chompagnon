@@ -593,7 +593,7 @@ PrefabInstance:
     - target: {fileID: 5102505034379151491, guid: 6f545478bd0fb7a478ed6f674a5210f5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5102505034379151491, guid: 6f545478bd0fb7a478ed6f674a5210f5,
         type: 3}
@@ -1026,7 +1026,7 @@ PrefabInstance:
     - target: {fileID: 4009130065698333725, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4009130065698333725, guid: 9a1bd12ebb35d4dc997aa0c5494eda9b,
         type: 3}
@@ -1763,6 +1763,8 @@ MonoBehaviour:
   - {fileID: 921884169}
   - {fileID: 968411326}
   - {fileID: 1427111289}
+  _baseEmissionRate: 1000
+  intensity: 0.5
 --- !u!1 &742932003
 GameObject:
   m_ObjectHideFlags: 3
@@ -2242,6 +2244,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1765517726}
     m_Modifications:
+    - target: {fileID: 2426193961448579992, guid: 0c49c9d5760c9034cbe340b5b7169cfb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5424470786172561450, guid: 0c49c9d5760c9034cbe340b5b7169cfb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5700185994148869448, guid: 0c49c9d5760c9034cbe340b5b7169cfb,
         type: 3}
       propertyPath: m_RootOrder
@@ -3319,7 +3331,7 @@ PrefabInstance:
     - target: {fileID: 8218587574878064489, guid: 13158e7629d55d24e9d881aa659d6f67,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8218587574878064489, guid: 13158e7629d55d24e9d881aa659d6f67,
         type: 3}
@@ -4010,6 +4022,8 @@ MonoBehaviour:
   SpawnPoint: {fileID: 421228357}
   TombPrefab: {fileID: 0}
   TombGroup: []
+  maxAttachDistance: 0.25
+  attachOffset: {x: -0.3, y: 0, z: 0}
 --- !u!4 &1983000963
 Transform:
   m_ObjectHideFlags: 0
@@ -4297,7 +4311,7 @@ MonoBehaviour:
   eventTriggerStayPushed:
     m_PersistentCalls:
       m_Calls: []
-  tag: Player
+  filterTag: Player
   shouldBeGrounded: 1
 --- !u!114 &2110646551 stripped
 MonoBehaviour:
@@ -4706,7 +4720,7 @@ PrefabInstance:
     - target: {fileID: 9011904436894894836, guid: 4167985a712391c4198f39f9ab52023e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9011904436894894836, guid: 4167985a712391c4198f39f9ab52023e,
         type: 3}
