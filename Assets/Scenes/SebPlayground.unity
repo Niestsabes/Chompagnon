@@ -1741,6 +1741,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24766fee6b0fb3143a8e03f3a04a155a, type: 3}
+--- !u!1 &697830945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1843751594351939810, guid: 77e5c8aa3481cad47889c435243d74a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 333147249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &697830947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 697830945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d41df298a929f448f9a94c7919c23d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _listParticleSystem:
+  - {fileID: 921884169}
+  - {fileID: 968411326}
+  - {fileID: 1427111289}
 --- !u!1 &742932003
 GameObject:
   m_ObjectHideFlags: 3
@@ -1974,6 +1996,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 907297672}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &921884169 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2331058, guid: 77e5c8aa3481cad47889c435243d74a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 333147249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &968411326 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5364684045133128813, guid: 77e5c8aa3481cad47889c435243d74a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 333147249}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &974232581
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,6 +2228,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5448649361654752811, guid: a4de903d6f35a5646a149843e9312903,
     type: 3}
   m_PrefabInstance: {fileID: 1265720685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1427111289 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 9218155176084797849, guid: 77e5c8aa3481cad47889c435243d74a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 333147249}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1488698763
 PrefabInstance:
@@ -3968,6 +4008,8 @@ MonoBehaviour:
   _currentSquirrel: 0
   _lifes: 0100000001000000
   SpawnPoint: {fileID: 421228357}
+  TombPrefab: {fileID: 0}
+  TombGroup: []
 --- !u!4 &1983000963
 Transform:
   m_ObjectHideFlags: 0

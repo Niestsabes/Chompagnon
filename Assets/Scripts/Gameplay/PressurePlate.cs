@@ -10,7 +10,7 @@ public class PressurePlate : MonoBehaviour
     public UnityEvent eventTriggerEnter;
     public UnityEvent eventTriggerExit;
     public UnityEvent eventTriggerStayPushed;
-    public string tag = "Player";
+    public new string tag = "Player";
     public bool shouldBeGrounded = false;
     private bool stayPushed = false;
     private int pushed = 0;
