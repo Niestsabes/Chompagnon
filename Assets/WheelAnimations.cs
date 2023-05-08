@@ -7,7 +7,6 @@ public class WheelAnimations : MonoBehaviour
     public bool rotateLeft = false;
     public bool rotateRight = false;
 
-    public AudioClip Door;
     public float rotationSpeed = 100;
 
     // Update is called once per frame
@@ -21,8 +20,6 @@ public class WheelAnimations : MonoBehaviour
             }
 
             transform.Rotate(Vector3.forward, signedSpeed * Time.deltaTime);
-            if (GetComponent<AudioSource>().isPlaying) return;
-            GetComponent<AudioSource>().PlayOneShot(Door);
         } 
 
     }

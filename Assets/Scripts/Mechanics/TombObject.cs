@@ -7,7 +7,7 @@ namespace Platformer.Mechanics
     public class TombObject : MonoBehaviour
     {
         [Header("Settings")]
-        public Vector2 TombTpSpawnPoint;
+        public Vector3 TombTpSpawnPoint;
         public Gradient colorGradient;
         public float topColorDist;
         public float bottomColorDist;
