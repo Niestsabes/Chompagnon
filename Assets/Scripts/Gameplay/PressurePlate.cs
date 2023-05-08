@@ -10,7 +10,7 @@ public class PressurePlate : MonoBehaviour
     public UnityEvent eventTriggerEnter;
     public UnityEvent eventTriggerExit;
     public UnityEvent eventTriggerStayPushed;
-    public new string tag = "Player";
+    public string filterTag = "Player";
     public bool shouldBeGrounded = false;
     private bool stayPushed = false;
     private int pushed = 0;
@@ -24,7 +24,7 @@ public class PressurePlate : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (stayPushed)
             return;
-        if (collision.gameObject.CompareTag(tag)) {
+        if (collision.gameObject.CompareTag(filterTag)) {
             if (collision.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController)) {
                 if (playerController.IsGrounded || !shouldBeGrounded) {
                     if (pushed == 0)
@@ -42,7 +42,7 @@ public class PressurePlate : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision) {
         if (stayPushed)
             return;
-        if (collision.gameObject.CompareTag(tag)) {
+        if (collision.gameObject.CompareTag(filterTag)) {
             if (pushed == 1)
                 eventTriggerExit.Invoke();
             pushed--;

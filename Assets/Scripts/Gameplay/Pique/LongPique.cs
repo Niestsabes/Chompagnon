@@ -8,7 +8,11 @@ public class LongPique : Pique
     float _oldDist;
     bool Up = false;
     float _time = 0;
+    public float _maxTime = Mathf.Infinity;
     bool Active = false;
+
+    float _lastUp = 0;
+    public float _timeOffsetSinceUp = 0;
 
     private void Awake()
     {
@@ -18,24 +22,26 @@ public class LongPique : Pique
     private void Update()
     {
         _time += Time.deltaTime;
-        if(_time >= _timeOffSet)
-        {
+        if (_time >= _timeOffSet && _time <= _maxTime) {
             Active = true;
         }
-        if(Active == true)
+        else {
+            Active = false;
+        }
+        if(Active)
         {
-            if (transform.localPosition.y >= _oldDist + _maxdist && Up == true)
+            if (transform.localPosition.y >= _oldDist + _maxdist && Up)
             {
                 Up = false;
             }
-            else if (transform.localPosition.y <= _oldDist && Up == false)
+            else if (transform.localPosition.y <= _oldDist && !Up)
             {
                 Up = true;
-
+                _lastUp = Time.time;
             }
-            if (Up)
+            if (Up && Time.time >= _timeOffsetSinceUp + _lastUp)
                 transform.localPosition += new Vector3(0, _speed* Time.deltaTime, 0);
-            else
+            else if (!Up)
                 transform.localPosition -= new Vector3(0, _speed * Time.deltaTime, 0);
         }
         

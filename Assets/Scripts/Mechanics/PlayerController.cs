@@ -154,6 +154,7 @@ namespace Platformer.Mechanics
                     stopJump = false;
                     break;
                 case JumpState.Jumping:
+                    onPlatform = false;
                     if (!IsGrounded)
                     {
                         Schedule<PlayerJumped>().player = this;
@@ -173,18 +174,14 @@ namespace Platformer.Mechanics
             }
         }
 
-        protected override void ComputeVelocity()
-        {
-            if (jump && IsGrounded)
-            {
+        protected override void ComputeVelocity() {
+            if (jump && IsGrounded) {
                 velocity.y = jumpTakeOffSpeed * model.jumpModifier;
                 jump = false;
             }
-            else if (stopJump)
-            {
+            else if (stopJump) {
                 stopJump = false;
-                if (velocity.y > 0)
-                {
+                if (velocity.y > 0) {
                     velocity.y = velocity.y * model.jumpDeceleration;
                 }
             }
@@ -197,7 +194,7 @@ namespace Platformer.Mechanics
             animator.SetBool("grounded", IsGrounded);
             animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 
-            targetVelocity = move * maxSpeed;
+                targetVelocity = move * maxSpeed;
         }
 
         public enum JumpState

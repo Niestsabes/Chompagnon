@@ -17,11 +17,15 @@ public class Rope : MonoBehaviour
             attachedObjectsInitial[i] = attachedObjects[i].position;
         }
     }
-    public void SetSize(float metersOffset) {
+    public void SetSize(float metersOffset, float speed) {
         transform.localScale = new Vector3(.1f, metersOffset + initialSize, 1);
 
         for (int i = 0; i < attachedObjects.Length; i++) {
             attachedObjects[i].position = attachedObjectsInitial[i] + new Vector3(0, metersOffset * (down ? -1: 1), 0);
+
+            if (attachedObjects[i].TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody2D)) {
+                rigidbody2D.velocity = new Vector2(0, speed * (down ? -1 : 1));
+            }
         }
         
     }

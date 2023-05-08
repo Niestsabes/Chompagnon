@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public GameObject TombPrefab;
     public List<GameObject> TombGroup;
 
+    public float maxAttachDistance = 0.25f;
+    public Vector3 attachOffset = new Vector3(-0.3f, 0f, 0f);
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -70,20 +73,13 @@ public class GameManager : MonoBehaviour
 
     public void Atach()
     {
-        if (_currentSquirrel == 1 && PlayersTransform[_currentSquirrel].position.x >= PlayersTransform[_currentSquirrel - 1].position.x - 0.25f && PlayersTransform[_currentSquirrel].position.x <= PlayersTransform[_currentSquirrel - 1].position.x + 0.25f)
-        {
-            PlayersTransform[_currentSquirrel - 1].parent = PlayersTransform[_currentSquirrel];
-            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
-            PlayersTransform[_currentSquirrel - 1].position = new Vector3(PlayersTransform[_currentSquirrel].position.x - 0.2f, PlayersTransform[_currentSquirrel].position.y, 0);
-            PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
-            Atached = !Atached;
-        }
-        else if (_currentSquirrel == 0 && PlayersTransform[_currentSquirrel].position.x >= PlayersTransform[_currentSquirrel + 1].position.x - 0.25f && PlayersTransform[_currentSquirrel].position.x <= PlayersTransform[_currentSquirrel + 1].position.x + 0.25f)
-        {
-            PlayersTransform[_currentSquirrel + 1].parent = PlayersTransform[_currentSquirrel];
-            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = true;
-            PlayersTransform[_currentSquirrel + 1].position = new Vector3(PlayersTransform[_currentSquirrel].position.x - 0.2f, PlayersTransform[_currentSquirrel].position.y, 0);
-            PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
+        int _otherSquirrel = 1 - _currentSquirrel;
+
+        if ((PlayersTransform[_currentSquirrel].position - PlayersTransform[_otherSquirrel].position).magnitude <= maxAttachDistance) {
+            PlayersTransform[_otherSquirrel].parent = PlayersTransform[_currentSquirrel];
+            PlayersTransform[_otherSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = true;
+            PlayersTransform[_otherSquirrel].position = PlayersTransform[_currentSquirrel].position + attachOffset;
+            PlayersTransform[_otherSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = true;
             Atached = !Atached;
         }
     }
@@ -92,21 +88,10 @@ public class GameManager : MonoBehaviour
     {
         if (Atached)
         {
-            if (_currentSquirrel == 1)
-            {
-                PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().move.x = 0;
-                PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
-                PlayersTransform[_currentSquirrel - 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
-
-            }
-            else
-            {
-                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().move.x = 0;
-                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<PlayerController>().controlEnabled = false;
-                PlayersTransform[_currentSquirrel + 1].gameObject.GetComponent<Collider2D>().isTrigger = true;
-
-
-            }
+            int _otherSquirrel = 1 - _currentSquirrel;
+            PlayersTransform[_otherSquirrel].gameObject.GetComponent<PlayerController>().move.x = 0;
+            PlayersTransform[_otherSquirrel].gameObject.GetComponent<PlayerController>().controlEnabled = false;
+            PlayersTransform[_otherSquirrel].gameObject.GetComponent<Collider2D>().isTrigger = true;
             PlayersTransform[_currentSquirrel].DetachChildren();
             Atached = !Atached;
         }
@@ -130,7 +115,7 @@ public class GameManager : MonoBehaviour
                 {
                     PlayersTransform[_currentSquirrel].SetParent(PlayersTransform[_currentSquirrel + 1]);
                     PlayersTransform[_currentSquirrel + 1].position = temp;
-                    PlayersTransform[_currentSquirrel].position = new Vector3(PlayersTransform[_currentSquirrel + 1].position.x - 0.2f, PlayersTransform[_currentSquirrel + 1].position.y, 0);
+                    PlayersTransform[_currentSquirrel].position = PlayersTransform[_currentSquirrel + 1].position + attachOffset;
 
                 }
                 else
@@ -151,7 +136,7 @@ public class GameManager : MonoBehaviour
 
                     PlayersTransform[_currentSquirrel].SetParent(PlayersTransform[_currentSquirrel - 1]);
                     PlayersTransform[_currentSquirrel - 1].position = temp;
-                    PlayersTransform[_currentSquirrel].position = new Vector3(PlayersTransform[_currentSquirrel - 1].position.x - 0.2f, PlayersTransform[_currentSquirrel - 1].position.y, 0);
+                    PlayersTransform[_currentSquirrel].position = PlayersTransform[_currentSquirrel - 1].position + attachOffset;
                 }
                 else
                 {

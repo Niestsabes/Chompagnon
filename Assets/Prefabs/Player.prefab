@@ -50,16 +50,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 709ee11994a2f44658e5fc9887c45081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundNormalY: 0.9
-  gravityModifier: 1
+  minGroundNormalY: 0.5
+  gravityModifier: 2
   velocity: {x: 0, y: 0}
+  onPlatform: 0
+  platformVelocity: {x: 0, y: 0}
+  _isGroundedInternal: 0
   isRewinding: 0
   Alone: 0
   jumpAudio: {fileID: 8300000, guid: 67975c08d56ceb147bad38572d805aa8, type: 3}
   respawnAudio: {fileID: 8300000, guid: e18959d46b63f3c4c8cc020a433cf848, type: 3}
   ouchAudio: {fileID: 8300000, guid: 6c05149e5a2fba64ba172e25a61074b7, type: 3}
-  maxSpeed: 3
-  jumpTakeOffSpeed: 7
+  maxSpeed: 5
+  jumpTakeOffSpeed: 10
   offSet: 0
   jumpState: 0
   collider2d: {fileID: 0}
