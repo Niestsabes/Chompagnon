@@ -35,7 +35,7 @@ public class PlayerAbilityTeleport : PlayerAbility
             this.PlayForegroundEffect();
             this.InstantiateParticuleEffect();
 
-            this.transform.position = this.focusedTomb.targetTomb.TombTpSpawnPoint;
+            this.transform.position = this.focusedTomb.targetTomb.TombTpSpawnPoint + this.focusedTomb.targetTomb.transform.position;
             this.InstantiateParticuleEffect();
             yield return new WaitForSeconds(0.4f);
             this.StopForegroundEffect();
