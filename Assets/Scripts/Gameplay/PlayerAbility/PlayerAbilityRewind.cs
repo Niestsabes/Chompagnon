@@ -10,12 +10,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PositionRewinder))]
 public class PlayerAbilityRewind : PlayerAbility
 {
+    [Header("Settings")]
+    [SerializeField] protected float _maxRecordTime = 10;
     protected PositionRewinder _rewinder;
 
     void Awake()
     {
         this._rewinder = this.GetComponent<PositionRewinder>();
-        if (this._rewinder) this._rewinder.Record();
+        this._rewinder.maxRecordTime = this._maxRecordTime;
+        this._rewinder.Record();
     }
 
     public override void OnAbility(InputAction.CallbackContext context)
@@ -30,9 +33,11 @@ public class PlayerAbilityRewind : PlayerAbility
 
     public override IEnumerator Execute()
     {
+        this.PlayForegroundEffect();
         this.InstantiateParticuleEffect();
         yield return this._rewinder.Rewind();
         this.InstantiateParticuleEffect();
+        this.StopForegroundEffect();
         this._rewinder.Record();
     }
 

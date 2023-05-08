@@ -289,6 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleParfab: {fileID: 81429842361549363, guid: 6c5354cb7ffa9b945bf25f19c8323673,
     type: 3}
+  _backgroundColor: {r: 0.10808115, g: 0.3106208, b: 0.6226415, a: 0.8627451}
+  _foregroundColor: {r: 0.3150943, g: 0.58620256, b: 1, a: 0.47058824}
 --- !u!1001 &7329539025576918248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -393,6 +395,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleParfab: {fileID: 433581913111494030, guid: 42c3a956de2b7204794f2794dd76410e,
     type: 3}
+  _backgroundColor: {r: 0.25490198, g: 0, b: 0.34117648, a: 0.8627451}
+  _foregroundColor: {r: 0.81960785, g: 0, b: 1, a: 0.47058824}
+  _maxRecordTime: 60
 --- !u!114 &4906697023856133927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,3 +410,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b93fc08f32d274abd158a7ce1f0146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RECORD_DELAY: 0.25
+  REWIND_SPEED_RATIO: 2

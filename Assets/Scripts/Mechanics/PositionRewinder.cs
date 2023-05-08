@@ -6,20 +6,22 @@ namespace Platformer.Mechanics
 {
     public class PositionRewinder : MonoBehaviour
     {
-        private readonly float RECORD_DELAY = 0.25f;
-        private readonly float MAX_RECORD_TIME = 10;
-        private readonly float REWIND_SPEED_RATIO = 2f;
+        public float RECORD_DELAY = 0.25f;
+        public float REWIND_SPEED_RATIO = 2f;
         private List<RewindStamp> listStamp = new List<RewindStamp>();
         public bool isRecording { get; protected set; } = false;
         public bool isRewinding { get; protected set; } = false;
+        public float maxRecordTime { get; set; } = 10;
         private float internTime = 0;
         private Rigidbody2D _rigidbody;
         private Collider2D _collider;
+        private PlayerController _playerController;
 
         void Awake()
         {
             this._rigidbody = this.GetComponent<Rigidbody2D>();
             this._collider = this.GetComponent<Collider2D>();
+            this._playerController = this.GetComponent<PlayerController>();
         }
 
         public void Record()
@@ -59,7 +61,9 @@ namespace Platformer.Mechanics
             this.internTime = 0;
             float recordTime = this.internTime + this.RECORD_DELAY;
             do {
-                this.internTime += Time.deltaTime;
+
+                if ((_playerController.velocity + _playerController.platformVelocity).magnitude >= 0.001)
+                    this.internTime += Time.deltaTime;
 
                 // Stack new records
                 if (this.internTime > recordTime) {
@@ -70,7 +74,7 @@ namespace Platformer.Mechanics
                 // Unstack old records
                 if (this.listStamp.Count > 0) {
                     var oldestRecord = this.listStamp[0];
-                    if (oldestRecord.timestamp < this.internTime - this.MAX_RECORD_TIME) this.listStamp.RemoveAt(0);
+                    if (oldestRecord.timestamp < this.internTime - this.maxRecordTime) this.listStamp.RemoveAt(0);
                 }
 
                 // Wait new frame
