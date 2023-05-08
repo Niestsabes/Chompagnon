@@ -1,12 +1,7 @@
 using Cinemachine;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
-using Platformer.Model;
 using Platformer.Mechanics;
-using UnityEngine.InputSystem;
-using UnityEditor.Rendering.LookDev;
 
 public class GameManager : MonoBehaviour
 {
