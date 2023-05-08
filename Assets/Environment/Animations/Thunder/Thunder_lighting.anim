@@ -20,18 +20,20 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 21300000, guid: 6874cf51d5b48d943bf8b6e90aa1802d, type: 3}
+      value: {fileID: 21300000, guid: 254d0e8704c2b0b449cfaeed12051194, type: 3}
     - time: 0.016666668
-      value: {fileID: 21300000, guid: edb96223cf3e4284293010693e0a7405, type: 3}
+      value: {fileID: 21300000, guid: 4fcda828734d34747accb9fad1b1975b, type: 3}
     - time: 0.033333335
-      value: {fileID: 21300000, guid: d74b231cea8354641aaafba14ffaf4a8, type: 3}
+      value: {fileID: 21300000, guid: 4cab10061a5339b47a2d7c64d1559181, type: 3}
     - time: 0.05
-      value: {fileID: 21300000, guid: 4ae6004a944465d4d9b1340f34cec82a, type: 3}
+      value: {fileID: 21300000, guid: 4b797ac7d67e5b24d91a13101c3fca55, type: 3}
     - time: 0.06666667
-      value: {fileID: 21300000, guid: 7cbb557b563cf024a8b5cdb190401793, type: 3}
+      value: {fileID: 21300000, guid: a6c03fb1a1d08b94599d1343abead73e, type: 3}
     - time: 0.083333336
-      value: {fileID: 21300000, guid: fff36f0538174c54f8563304524b1ab6, type: 3}
+      value: {fileID: 21300000, guid: 46f24c7477b02da4db4df062b180b5e6, type: 3}
     - time: 0.1
+      value: {fileID: 21300000, guid: b8d828e6a3c7ef941b49cf292cfb3d91, type: 3}
+    - time: 0.11666667
       value: {fileID: 0}
     attribute: m_Sprite
     path: 
@@ -52,19 +54,20 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 21300000, guid: 6874cf51d5b48d943bf8b6e90aa1802d, type: 3}
-    - {fileID: 21300000, guid: edb96223cf3e4284293010693e0a7405, type: 3}
-    - {fileID: 21300000, guid: d74b231cea8354641aaafba14ffaf4a8, type: 3}
-    - {fileID: 21300000, guid: 4ae6004a944465d4d9b1340f34cec82a, type: 3}
-    - {fileID: 21300000, guid: 7cbb557b563cf024a8b5cdb190401793, type: 3}
-    - {fileID: 21300000, guid: fff36f0538174c54f8563304524b1ab6, type: 3}
+    - {fileID: 21300000, guid: 254d0e8704c2b0b449cfaeed12051194, type: 3}
+    - {fileID: 21300000, guid: 4fcda828734d34747accb9fad1b1975b, type: 3}
+    - {fileID: 21300000, guid: 4cab10061a5339b47a2d7c64d1559181, type: 3}
+    - {fileID: 21300000, guid: 4b797ac7d67e5b24d91a13101c3fca55, type: 3}
+    - {fileID: 21300000, guid: a6c03fb1a1d08b94599d1343abead73e, type: 3}
+    - {fileID: 21300000, guid: 46f24c7477b02da4db4df062b180b5e6, type: 3}
+    - {fileID: 21300000, guid: b8d828e6a3c7ef941b49cf292cfb3d91, type: 3}
     - {fileID: 0}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.11666667
+    m_StopTime: 0.13333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -83,4 +86,11 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.11666667
+    functionName: Explode
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

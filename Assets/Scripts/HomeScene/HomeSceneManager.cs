@@ -7,7 +7,7 @@ public class HomeSceneManager : MonoBehaviour
 {
     public void NavigateToGame()
     {
-        UISceneTransition.instance.CloseToScene("SampleScene");
+        UISceneTransition.instance.CloseToScene("MovieScene");
     }
 
     public void NavigateToGallery()

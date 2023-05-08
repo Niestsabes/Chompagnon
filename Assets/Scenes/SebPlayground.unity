@@ -4511,11 +4511,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1707014948837038317, guid: 72e51cce5a2c50d4abe6ce84e6a5c6b3,
-        type: 3}
-      propertyPath: _minReloadTime
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5607812004915345799, guid: 72e51cce5a2c50d4abe6ce84e6a5c6b3,
         type: 3}
       propertyPath: m_RootOrder
