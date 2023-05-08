@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PoulieAnim : MonoBehaviour
 {
+
+    public AudioClip Ascenseur;
     public Rope[] ropeRight;
     public Rope[] ropeLeft;
     public WheelAnimations[] wheels;
@@ -21,6 +23,8 @@ public class PoulieAnim : MonoBehaviour
         }
 
         activateLeft = activate;
+        if (GetComponent<AudioSource>().isPlaying) return;
+        GetComponent<AudioSource>().PlayOneShot(Ascenseur);
     }
     public void SetActivateRight(bool activate) {
         foreach (var wa in wheels) {
@@ -28,6 +32,8 @@ public class PoulieAnim : MonoBehaviour
         }
 
         activateRight = activate;
+        if (GetComponent<AudioSource>().isPlaying) return;
+        GetComponent<AudioSource>().PlayOneShot(Ascenseur);
     }
 
 
