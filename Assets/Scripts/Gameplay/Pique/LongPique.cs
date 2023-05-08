@@ -23,6 +23,20 @@ public class LongPique : Pique
         Up = true;
     }
 
+    private void Start()
+    {
+        StartCoroutine(StartSong());
+    }
+
+    IEnumerator StartSong()
+    {
+        _time += Time.deltaTime;
+        if (_time >= _timeOffSet && _time <= _maxTime)
+        {
+            GetComponent<AudioSource>().Play();
+        }
+        yield return null;
+    }
     private void Update()
     {
         _time += Time.deltaTime;
