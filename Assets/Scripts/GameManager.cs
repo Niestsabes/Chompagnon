@@ -2,9 +2,11 @@ using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 using Platformer.Mechanics;
+using System.Drawing;
 
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager Instance { get; private set; }
     public GameObject _camManager;
     public Transform[] PlayersTransform;
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
     public Transform SpawnPoint;
     public GameObject TombPrefab;
     public List<GameObject> TombGroup;
+    public float MultiplierOffsetY;
 
     public float maxAttachDistance = 0.25f;
     public Vector3 attachOffset = new Vector3(-0.3f, 0f, 0f);
@@ -158,14 +161,6 @@ public class GameManager : MonoBehaviour
 
     public void Death()
     {
-        //animation
-
-        //playerController.controlEnabled = false;
-        //if (playerController.audioSource && playerController.ouchAudio)
-        //    playerController.audioSource.PlayOneShot(playerController.ouchAudio);
-        //playerController.animator.SetTrigger("hurt");
-        //playerController.animator.SetBool("dead", true);
-
         if (Atached)
         {
             PlayersTransform[_currentSquirrel].DetachChildren();
@@ -179,7 +174,7 @@ public class GameManager : MonoBehaviour
         else
         {
             _lifes[_currentSquirrel]--;
-            TombGroup.Add(Instantiate(TombPrefab, PlayersTransform[_currentSquirrel].position, Quaternion.Euler(0, 0, 0)));
+            TombGroup.Add(Instantiate(TombPrefab, new Vector2(PlayersTransform[_currentSquirrel].position.x, PlayersTransform[_currentSquirrel].position.y + (PlayersTransform[_currentSquirrel].GetComponent<BoxCollider2D>().offset.y *MultiplierOffsetY)), Quaternion.Euler(0, 0, 0)));
             foreach (GameObject tomb in TombGroup)
             {
                 tomb.SetActive(true);
