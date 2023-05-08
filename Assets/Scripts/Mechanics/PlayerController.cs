@@ -15,7 +15,6 @@ namespace Platformer.Mechanics
     {
         public bool isRewinding = false;
         public bool Alone = false;
-        public AudioClip jumpAudio;
         public AudioClip respawnAudio;
         public AudioClip ouchAudio;
 
