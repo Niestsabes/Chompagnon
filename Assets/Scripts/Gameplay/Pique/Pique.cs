@@ -8,7 +8,9 @@ public class Pique : MonoBehaviour
     {
         if (collision.collider.name.Contains("Player"))
         {
-            GameManager.Instance.Death();
+            if(GameManager.Instance.Atached)
+                GameManager.Instance.PlayersTransform[1 - GameManager.Instance._currentSquirrel].gameObject.GetComponent<PlayerDeath>().PlayerDeathAnim();
+            collision.collider.GetComponent<PlayerDeath>().PlayerDeathAnimAndSound();
         }
     }
 }

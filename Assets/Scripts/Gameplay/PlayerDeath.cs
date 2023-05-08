@@ -5,17 +5,44 @@ using Platformer.Mechanics;
 using Platformer.Model;
 using UnityEngine;
 
-namespace Platformer.Gameplay
+public class PlayerDeath : MonoBehaviour
 {
-    /// <summary>
-    /// Fired when the player has died.
-    /// </summary>
-    /// <typeparam name="PlayerDeath"></typeparam>
-    public class PlayerDeath : Simulation.Event<PlayerDeath>
+    PlayerController playerController;
+    public void Start()
     {
+       playerController = GetComponent<PlayerController>();
+    }
 
-        public override void Execute()
+    IEnumerator DelayDeath()
+    {
+        playerController.animator.SetTrigger("Dead");
+        yield return null;
+        yield return new WaitUntil(() => playerController.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f);
+        
+        if (playerController.jumpState == PlayerController.JumpState.Grounded)
         {
+            playerController.controlEnabled = true;
+            GameManager.Instance.Death();
         }
+        
+    }
+
+    IEnumerator DelayDeathForSecondChar()
+    {
+        playerController.animator.SetTrigger("Dead");
+        yield return null;
+    }
+
+    public void PlayerDeathAnimAndSound()
+    {
+        playerController.controlEnabled = false;
+        if (playerController.audioSource && playerController.ouchAudio)
+            playerController.audioSource.PlayOneShot(playerController.ouchAudio);
+        StartCoroutine(DelayDeath());
+    }
+
+    public void PlayerDeathAnim()
+    {
+        StartCoroutine(DelayDeathForSecondChar());
     }
 }

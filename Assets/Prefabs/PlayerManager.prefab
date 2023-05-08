@@ -289,6 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleParfab: {fileID: 81429842361549363, guid: 6c5354cb7ffa9b945bf25f19c8323673,
     type: 3}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  _foregroundColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &7329539025576918248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -393,6 +395,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleParfab: {fileID: 433581913111494030, guid: 42c3a956de2b7204794f2794dd76410e,
     type: 3}
+  _backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  _foregroundColor: {r: 0, g: 0, b: 0, a: 0}
+  _maxRecordTime: 60
 --- !u!114 &4906697023856133927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,5 +411,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RECORD_DELAY: 0.25
-  MAX_RECORD_TIME: 30
   REWIND_SPEED_RATIO: 3

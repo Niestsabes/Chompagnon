@@ -19,6 +19,7 @@ public class audioTest : MonoBehaviour
         {
             m_Play = false;
             m_ToggleChange = true;
+            GetComponent<Collider2D>().enabled = false;
             StartCoroutine("TriggerStinger");
            
         }

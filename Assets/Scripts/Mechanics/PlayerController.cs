@@ -65,7 +65,7 @@ namespace Platformer.Mechanics
         {
             if (!context.canceled) return;
             if (GetComponent<PositionRewinder>() && GetComponent<PositionRewinder>().isRewinding) return;
-            if (Alone) return;
+            if (Alone || !controlEnabled) return;
             GameManager.Instance.SwitchSquirrel();
 
         }
@@ -73,7 +73,7 @@ namespace Platformer.Mechanics
         {
             if (!context.canceled) return;
             if (GetComponent<PositionRewinder>() && GetComponent<PositionRewinder>().isRewinding) return;
-            if (Alone) return;
+            if (Alone || !controlEnabled) return;
             GameManager.Instance.Detach();
         }
 
