@@ -397,7 +397,7 @@ MonoBehaviour:
     type: 3}
   _backgroundColor: {r: 0.25490198, g: 0, b: 0.34117648, a: 0.8627451}
   _foregroundColor: {r: 0.81960785, g: 0, b: 1, a: 0.47058824}
-  _maxRecordTime: 10
+  _maxRecordTime: 60
 --- !u!114 &4906697023856133927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,3 +410,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86b93fc08f32d274abd158a7ce1f0146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RECORD_DELAY: 0.25
+  REWIND_SPEED_RATIO: 2
