@@ -312,3 +312,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b144adbcc33064b868df6d6c17ab5f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerFeetPos: {x: -4.0971766, y: 2.958351}

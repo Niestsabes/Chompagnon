@@ -28,7 +28,7 @@ public class PlayerAbilityTeleport : PlayerAbility
                 GameManager.Instance.Detach();
             }
             this.InstantiateParticuleEffect();
-            this.transform.position = this.focusedTomb.targetTomb.transform.position;
+            this.transform.position = this.focusedTomb.targetTomb.TombTpSpawnPoint;
             this.InstantiateParticuleEffect();
         }
         yield return null;
