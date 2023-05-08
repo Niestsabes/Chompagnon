@@ -57,7 +57,6 @@ namespace Platformer.Mechanics
         private IEnumerator RunRecording()
         {
             this.isRecording = true;
-            this.listStamp = new List<RewindStamp>();
             this.internTime = 0;
             float recordTime = this.internTime + this.RECORD_DELAY;
             do {

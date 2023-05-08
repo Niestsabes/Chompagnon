@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d37e1d55ea3d5442ad5cbba4cab308d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TombTpSpawnPoint: {x: 0.000000007450581, y: 0.9280423}
+  TombTpSpawnPoint: {x: 1.9264455, y: -0.6395556}
   colorGradient:
     serializedVersion: 2
     key0: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 0.20784314}
