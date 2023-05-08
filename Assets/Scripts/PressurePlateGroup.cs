@@ -8,6 +8,7 @@ public class PressurePlateGroup : MonoBehaviour
     private PressurePlate[] pressurePlate;
     private int pushedPlates = 0;
     public UnityEvent onAllPushed;
+    private bool stayPushed = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +23,10 @@ public class PressurePlateGroup : MonoBehaviour
         pushedPlates++;
 
         if (pushedPlates == pressurePlate.Length) {
-            foreach (PressurePlate pressurePlate in pressurePlate) {
-                pressurePlate.StayPushed();
+            if (stayPushed) {
+                foreach (PressurePlate pressurePlate in pressurePlate) {
+                    pressurePlate.StayPushed();
+                }
             }
             onAllPushed.Invoke();
         }
