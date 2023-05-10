@@ -17,13 +17,16 @@ public class PoulieAnim : MonoBehaviour
     public float maxTime = 5;
     public float moveSpeed = 5;
     public float currTime = 0;
+    public float leftMultiplier = 1;
+    public float rightMultiplier = 1;
 
     public void SetActivateLeft(bool activate) {
-        foreach (var wa in wheels) {
-            wa.rotateLeft = activate;
-        }
 
         activateLeft += activate ? 1 : -1;
+
+        foreach (var wa in wheels) {
+            wa.rotateLeft = activateLeft;
+        }
 
         if (activateLeft != activateRight && currTime > minTime && currTime < maxTime) {
             if (GetComponent<AudioSource>().isPlaying) return;
@@ -31,11 +34,11 @@ public class PoulieAnim : MonoBehaviour
         }
     }
     public void SetActivateRight(bool activate) {
-        foreach (var wa in wheels) {
-            wa.rotateRight = activate;
-        }
 
         activateRight += activate ? 1 : -1;
+        foreach (var wa in wheels) {
+            wa.rotateRight = activateRight;
+        }
 
         if (activateLeft != activateRight && currTime > minTime && currTime < maxTime) {
             if (GetComponent<AudioSource>().isPlaying) return;
@@ -44,9 +47,11 @@ public class PoulieAnim : MonoBehaviour
     }
 
 
-    public void Update() {
+    public void FixedUpdate() {
         float actualMoveSpeed = 0;
         bool moveLeft = false;
+        bool moveRight = false;
+        bool blocked = true;
         if (activateLeft != activateRight) {
             if (activateLeft > activateRight) {
                 currTime -= Time.deltaTime;
@@ -55,30 +60,35 @@ public class PoulieAnim : MonoBehaviour
             }
             else {
                 currTime += Time.deltaTime;
-                moveLeft = false;
+                moveRight = true;
             }
         }
         else {
-            if (currTime >= 0) {
+            if (currTime >= 0.1f) {
                 currTime -= Time.deltaTime;
                 moveLeft = true;
             }
-            else {
+            else if (currTime <= -0.1f){
                 currTime += Time.deltaTime;
-                moveLeft = false;
+                moveRight = true;
             }
         }
 
         currTime = Mathf.Clamp(currTime, minTime, maxTime);
 
-        if (currTime > minTime && currTime < maxTime) {
+
+        if (currTime > minTime && currTime < maxTime && (moveLeft || moveRight)) {
+            blocked = false;
             actualMoveSpeed = moveLeft ? -moveSpeed: moveSpeed;
         }
         foreach (var rope in ropeLeft) {
-            rope.SetSize(-currTime * moveSpeed, -actualMoveSpeed);
+            rope.SetSize(-currTime * moveSpeed * leftMultiplier, -actualMoveSpeed * leftMultiplier);
         }
         foreach (var rope in ropeRight) {
-            rope.SetSize(currTime * moveSpeed, actualMoveSpeed);
+            rope.SetSize(currTime * moveSpeed * rightMultiplier, actualMoveSpeed * rightMultiplier);
+        }
+        foreach (var wa in wheels) {
+            wa.blocked = blocked;
         }
     }
 }

@@ -23,7 +23,7 @@ public class MovingPlatform : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             if (other.TryGetComponent<PlayerController>(out PlayerController controller)) {
-                if (controller.IsGrounded) {
+                if (controller.IsGrounded && !controller.onPlatform) {
                     controller.onPlatform = true;
                     controller.platformVelocity = body.velocity;
                 }
