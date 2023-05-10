@@ -218,5 +218,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe6d3dba3172914283721c25c07247e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Loop1: {fileID: 0}
-  Loop2: {fileID: 0}
+  Loop1: {fileID: 8300000, guid: eb6e1d49a5e0d654889a9eb8b9e1be85, type: 3}
+  Loop2: {fileID: 8300000, guid: ec76bd8e1e475ac48900f6eabaa1668b, type: 3}

@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ac71cb41525cf429494043393a60ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PiqueMovement: {fileID: 8300000, guid: 28053f9c7042b10449b366518c0a858b, type: 3}
   _speed: 0.5
   _maxdist: 1
   _timeOffSet: 0.5
