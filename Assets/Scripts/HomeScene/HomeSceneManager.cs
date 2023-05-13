@@ -7,12 +7,12 @@ public class HomeSceneManager : MonoBehaviour
 {
     public void NavigateToGame()
     {
-        UISceneTransition.instance.CloseToScene("MovieScene");
+        SceneManager.LoadScene("MovieScene");
     }
 
     public void NavigateToGallery()
     {
-        UISceneTransition.instance.CloseToScene("GalleryScene");
+        SceneManager.LoadScene("GalleryScene");
     }
 
     public void QuitGame()

@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 namespace Platformer.UI
 {
@@ -10,6 +13,8 @@ namespace Platformer.UI
     public class MainUIController : MonoBehaviour
     {
         public GameObject[] panels;
+        public Button[] defaultButtons;
+        public EventSystem eventSystem;
 
         public void SetActivePanel(int index)
         {
@@ -18,7 +23,13 @@ namespace Platformer.UI
                 var active = i == index;
                 var g = panels[i];
                 if (g.activeSelf != active) g.SetActive(active);
+                if (active && this.defaultButtons[i]) eventSystem.SetSelectedGameObject(this.defaultButtons[i].gameObject);
             }
+        }
+
+        public void NavigateToMainMenu()
+        {
+            SceneManager.LoadScene("HomeScene");
         }
 
         void OnEnable()

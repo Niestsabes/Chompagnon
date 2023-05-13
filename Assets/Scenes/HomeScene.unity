@@ -6256,6 +6256,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UISceneTransition
       objectReference: {fileID: 0}
+    - target: {fileID: 2005616753607396637, guid: dcb4234b415905144a8ff92b542a9d26,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4622153082079500962, guid: dcb4234b415905144a8ff92b542a9d26,
         type: 3}
       propertyPath: m_Pivot.x
