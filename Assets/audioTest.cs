@@ -63,16 +63,4 @@ public class audioTest : MonoBehaviour
             m_ToggleChange = false;
         }
     }
-    void OnGUI()
-    {
-        //Switch this toggle to activate and deactivate the parent GameObject
-        m_Play = GUI.Toggle(new Rect(10, 10, 100, 30), m_Play, "Play Music");
-
-        //Detect if there is a change with the toggle
-        if (GUI.changed)
-        {
-            //Change to true to show that there was just a change in the toggle state
-            m_ToggleChange = true;
-        }
-    }
 }

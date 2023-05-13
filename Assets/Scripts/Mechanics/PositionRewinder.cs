@@ -43,8 +43,13 @@ namespace Platformer.Mechanics
             this.listStamp.Add(new RewindStamp() { position = this.transform.position, timestamp = this.internTime });
             for (int idx = this.listStamp.Count - 1; idx > 0; idx--) {
                 if (!this.isRewinding) break;
-                yield return this.RunRewind(this.listStamp[idx], this.listStamp[idx - 1]);
+
+                var lastPosition = this.listStamp[idx];
+                this.listStamp.RemoveAt(idx);
+                this.internTime = lastPosition.timestamp;
+                yield return this.RunRewind(lastPosition, this.listStamp[idx - 1]);
             }
+            this.internTime = this.listStamp[0].timestamp;
             this.isRewinding = false;
             this.SetObjectInteractionEnabled(true);
         }
@@ -61,19 +66,20 @@ namespace Platformer.Mechanics
             float recordTime = this.internTime + this.RECORD_DELAY;
             do {
 
-                if ((_playerController.velocity + _playerController.platformVelocity).magnitude >= 0.001)
+                if ((_playerController.velocity + _playerController.platformVelocity).magnitude >= 0.001 && !isRewinding) {
                     this.internTime += Time.deltaTime;
 
-                // Stack new records
-                if (this.internTime > recordTime) {
-                    this.listStamp.Add(new RewindStamp() { position = this.transform.position, timestamp = this.internTime });
-                    recordTime += this.RECORD_DELAY;
-                }
+                    // Stack new records
+                    if (this.internTime > recordTime) {
+                        this.listStamp.Add(new RewindStamp() { position = this.transform.position, timestamp = this.internTime });
+                        recordTime += this.RECORD_DELAY;
+                    }
 
-                // Unstack old records
-                if (this.listStamp.Count > 0) {
-                    var oldestRecord = this.listStamp[0];
-                    if (oldestRecord.timestamp < this.internTime - this.maxRecordTime) this.listStamp.RemoveAt(0);
+                    // Unstack old records
+                    if (this.listStamp.Count > 0) {
+                        var oldestRecord = this.listStamp[0];
+                        if (oldestRecord.timestamp < this.internTime - this.maxRecordTime) this.listStamp.RemoveAt(0);
+                    }
                 }
 
                 // Wait new frame
@@ -89,6 +95,7 @@ namespace Platformer.Mechanics
                 if (!this.isRewinding) break;
                 rewindTime += Time.deltaTime * this.REWIND_SPEED_RATIO;
                 this.transform.position = Vector3.Lerp(newestStamp.position, oldestStamp.position, rewindTime / endRewindTime);
+                this.internTime = newestStamp.timestamp - rewindTime;
                 yield return null;
             }
             if (this.isRewinding) this.transform.position = oldestStamp.position;

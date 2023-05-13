@@ -10,7 +10,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (collision.name.Contains("Player"))
         {
-            SpawnPoint.position = new Vector2(gameObject.transform.position.x, 0);
+            SpawnPoint.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y);
         }
     }
 }

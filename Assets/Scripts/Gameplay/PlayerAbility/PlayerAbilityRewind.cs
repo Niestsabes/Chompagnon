@@ -19,6 +19,9 @@ public class PlayerAbilityRewind : PlayerAbility
     {
         this._rewinder = this.GetComponent<PositionRewinder>();
         this._rewinder.maxRecordTime = this._maxRecordTime;
+    }
+
+    private void Start() {
         this._rewinder.Record();
     }
 
