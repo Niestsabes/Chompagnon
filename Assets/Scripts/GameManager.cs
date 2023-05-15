@@ -42,9 +42,12 @@ public class GameManager : MonoBehaviour {
 
     public void Spawn() {
         TombGroup.Clear();
+        int i = 0;
         foreach (Transform transform in PlayersTransform) {
             transform.position = SpawnPoint.position;
             transform.gameObject.SetActive(true);
+            transform.GetComponent<PlayerController>().squirrelId = i;
+            i++;
         }
         if (_currentSquirrel == 0) {
             PlayersTransform[_currentSquirrel + 1].SetParent(PlayersTransform[_currentSquirrel]);
@@ -152,7 +155,7 @@ public class GameManager : MonoBehaviour {
         SwitchCameraTarget();
     }
 
-    public void Death()
+    public void Death(int squirrelId)
     {
         if (Atached)
         {
@@ -164,27 +167,22 @@ public class GameManager : MonoBehaviour {
             }
             GameOver();
         }
-        else
+        else if (_lifes[squirrelId] > 0)
         {
-            _lifes[_currentSquirrel]--;
+            _lifes[squirrelId]--;
             TombGroup.Add(Instantiate(TombPrefab, new Vector2(PlayersTransform[_currentSquirrel].position.x, PlayersTransform[_currentSquirrel].position.y + (PlayersTransform[_currentSquirrel].GetComponent<BoxCollider2D>().offset.y *MultiplierOffsetY)), Quaternion.Euler(0, 0, 0)));
             foreach (GameObject tomb in TombGroup)
             {
                 tomb.SetActive(true);
                 tomb.GetComponent<TombObject>().targetTomb = null;
             }
-            PlayersTransform[_currentSquirrel].gameObject.SetActive(false);
-            PlayersTransform[_currentSquirrel].parent.DetachChildren();
-            switch (_currentSquirrel)
-            {
-                case 0:
-                    _currentSquirrel++;
-                    break;
-                case 1:
-                    _currentSquirrel--;
-                    break;
+            if (_currentSquirrel == squirrelId) {
+                _currentSquirrel = 1 - _currentSquirrel;
+                PlayersTransform[squirrelId].DetachChildren();
             }
-            if (_lifes[_currentSquirrel] == 0)
+            PlayersTransform[squirrelId].gameObject.SetActive(false);
+            PlayersTransform[squirrelId].parent.DetachChildren();
+            if (_lifes[0] == 0 && _lifes[1] == 0)
             {
                 TombGroup[0].GetComponent<TombObject>().targetTomb = TombGroup[1].GetComponent<TombObject>();
                 TombGroup[1].GetComponent<TombObject>().targetTomb = TombGroup[0].GetComponent<TombObject>();

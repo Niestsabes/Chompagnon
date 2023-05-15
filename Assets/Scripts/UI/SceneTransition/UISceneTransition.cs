@@ -10,13 +10,14 @@ public class UISceneTransition : MonoBehaviour
     private static UISceneTransition _instance;
 
     private Animator _animator;
-    private bool _isTransitionning = false;
+    //private bool _isTransitionning = false;
     private string _sceneName;
 
     void Awake()
     {
         UISceneTransition._instance = this;
-        this._animator = this.GetComponent<Animator>();    
+        this._animator = this.GetComponent<Animator>();
+        this.Open();
     }
 
     public void Open()
@@ -31,16 +32,17 @@ public class UISceneTransition : MonoBehaviour
 
     public void CloseToScene(string scene)
     {
-        if (this._isTransitionning) return;
-        this._isTransitionning = true;
-        this._sceneName = scene;
-        this.Close();
+        SceneManager.LoadScene(scene);
+        //if (this._isTransitionning) return;
+        //this._isTransitionning = true;
+        //this._sceneName = scene;
+        //this.Close();
     }
 
     public void ChangeScene()
     {
         SceneManager.LoadScene(this._sceneName);
-        this._isTransitionning = false;
+        //this._isTransitionning = false;
     }
 
 }

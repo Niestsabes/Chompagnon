@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class MovieController : MonoBehaviour
@@ -45,6 +46,6 @@ public class MovieController : MonoBehaviour
 
     public void LoadNextScene()
     {
-        UISceneTransition.instance.CloseToScene("LDPlayer");
+        SceneManager.LoadScene("LDPlayer");
     }
 }

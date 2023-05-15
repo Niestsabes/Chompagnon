@@ -9,6 +9,7 @@ public class PlayerDeath : MonoBehaviour
 {
     PlayerController playerController;
     public AudioClip Death;
+    public bool dying = false;
     public void Start()
     {
        playerController = GetComponent<PlayerController>();
@@ -24,8 +25,9 @@ public class PlayerDeath : MonoBehaviour
         if (playerController.jumpState == PlayerController.JumpState.Grounded)
         {
             playerController.controlEnabled = true;
-            GameManager.Instance.Death();
+            GameManager.Instance.Death(playerController.squirrelId);
         }
+        dying = false;
         
     }
 
@@ -37,10 +39,13 @@ public class PlayerDeath : MonoBehaviour
 
     public void PlayerDeathAnimAndSound()
     {
-        playerController.controlEnabled = false;
-        if (playerController.audioSource && playerController.ouchAudio)
-            playerController.audioSource.PlayOneShot(playerController.ouchAudio);
-        StartCoroutine(DelayDeath());
+        if (!dying) {
+            dying = true;
+            playerController.controlEnabled = false;
+            if (playerController.audioSource && playerController.ouchAudio)
+                playerController.audioSource.PlayOneShot(playerController.ouchAudio);
+            StartCoroutine(DelayDeath());
+        }
     }
 
     public void PlayerDeathAnim()

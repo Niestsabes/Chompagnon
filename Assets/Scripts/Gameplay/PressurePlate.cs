@@ -15,6 +15,12 @@ public class PressurePlate : MonoBehaviour
     private bool stayPushed = false;
     private int pushed = 0;
 
+    private List<Collider2D> collidersInside;
+
+    public void Awake() {
+        collidersInside = new List<Collider2D>();
+    }
+
     public void StayPushed() {
         stayPushed = true;
         if (pushed == 0)
@@ -30,22 +36,25 @@ public class PressurePlate : MonoBehaviour
                     if (pushed == 0)
                         eventTriggerEnter.Invoke();
                     pushed++;
+                    collidersInside.Add(collision);
                 }
             }
             else {
                 if (pushed == 0)
                     eventTriggerEnter.Invoke();
                 pushed++;
+                collidersInside.Add(collision);
             }
         }
     }
     private void OnTriggerExit2D(Collider2D collision) {
         if (stayPushed)
             return;
-        if (collision.gameObject.CompareTag(filterTag)) {
+        if (collision.gameObject.CompareTag(filterTag) && collidersInside.Contains(collision)) {
             if (pushed == 1)
                 eventTriggerExit.Invoke();
             pushed--;
+            collidersInside.Remove(collision);
         }
     }
     // Start is called before the first frame update

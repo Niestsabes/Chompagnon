@@ -40,6 +40,7 @@ namespace Platformer.Mechanics
         public Vector2 move;
         SpriteRenderer spriteRenderer;
         internal Animator animator;
+        public int squirrelId;
         readonly PlatformerModel model = Simulation.GetModel<PlatformerModel>();
 
         public Bounds Bounds => collider2d.bounds;

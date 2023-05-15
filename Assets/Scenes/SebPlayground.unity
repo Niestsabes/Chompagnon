@@ -460,6 +460,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7967986608402250907, guid: 6fac9cd893f993c4587ba7e1e9bf4e00,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fac9cd893f993c4587ba7e1e9bf4e00, type: 3}
 --- !u!4 &94334831 stripped
@@ -1309,7 +1314,7 @@ PrefabInstance:
     - target: {fileID: 8080178183858036272, guid: 24766fee6b0fb3143a8e03f3a04a155a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8080178183858036272, guid: 24766fee6b0fb3143a8e03f3a04a155a,
         type: 3}
@@ -1834,6 +1839,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lift
       objectReference: {fileID: 0}
+    - target: {fileID: 5108638196870914188, guid: a4de903d6f35a5646a149843e9312903,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5448649361654752811, guid: a4de903d6f35a5646a149843e9312903,
         type: 3}
       propertyPath: m_RootOrder
@@ -2279,6 +2289,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967986608402250907, guid: 6fac9cd893f993c4587ba7e1e9bf4e00,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fac9cd893f993c4587ba7e1e9bf4e00, type: 3}
@@ -3486,6 +3501,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -4.31
       objectReference: {fileID: 0}
+    - target: {fileID: 9150784292029974971, guid: d7496b41a488f09419891442fff3bcd9,
+        type: 3}
+      propertyPath: TombTpSpawnPoint.x
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7496b41a488f09419891442fff3bcd9, type: 3}
 --- !u!4 &1830581370 stripped
@@ -3919,7 +3939,7 @@ PrefabInstance:
     - target: {fileID: 8080178183858036272, guid: 24766fee6b0fb3143a8e03f3a04a155a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8080178183858036272, guid: 24766fee6b0fb3143a8e03f3a04a155a,
         type: 3}
@@ -4189,7 +4209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d11bf2e7dc1e44bbef83bc1620644c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camManager: {fileID: 1946717923}
+  _camManagers: []
   PlayersTransform:
   - {fileID: 1855925515}
   - {fileID: 1855925516}
@@ -4865,7 +4885,7 @@ PrefabInstance:
     - target: {fileID: 9011904436894894836, guid: 4167985a712391c4198f39f9ab52023e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9011904436894894836, guid: 4167985a712391c4198f39f9ab52023e,
         type: 3}

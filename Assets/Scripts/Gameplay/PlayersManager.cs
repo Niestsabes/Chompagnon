@@ -30,4 +30,11 @@ public class PlayersManager : MonoBehaviour
         if (!gameObject.GetComponentInChildren<PlayerController>().controlEnabled) return;
         gameObject.GetComponentInChildren<PlayerAbility>().OnAbility(context);
     }
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        Debug.Log("Hello");
+        //if (!gameObject.GetComponentInChildren<PlayerController>().controlEnabled) return;
+        //gameObject.GetComponentInChildren<PlayerAbility>().OnAbility(context);
+    }
 }
