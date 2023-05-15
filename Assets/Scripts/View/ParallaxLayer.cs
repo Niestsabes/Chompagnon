@@ -11,17 +11,25 @@ namespace Platformer.View
     public class ParallaxLayer : MonoBehaviour
     {
         public Vector3 movementScale = Vector3.one;
-        public Vector3 offset = Vector3.zero;
         private Transform _camera;
+
+        public Transform _referenceCameraTransform;
+        private Vector3 _initialCameraPosition;
+        private Vector3 _initialPosition;
 
         void Awake()
         {
             this._camera = Camera.main.transform;
+            this._initialPosition = transform.position;
+            this._initialCameraPosition = transform.position;
         }
 
-        void Update()
+        void LateUpdate()
         {
-            var target = Vector3.Scale(_camera.position, movementScale) + offset;
+            if (_referenceCameraTransform != null) {
+                _initialCameraPosition = _referenceCameraTransform.position;
+            }
+            var target = Vector3.Scale(_camera.position - _initialCameraPosition, movementScale) + _initialPosition;
             transform.position = target;
         }
 
