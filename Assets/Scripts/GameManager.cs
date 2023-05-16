@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public Transform[] PlayersTransform;
     public GameObject GlobalPlayerParent;
     public bool Atached = true;
+    public bool EndGame = false;
     public int _currentSquirrel;
     public int[] _lifes;
     public Transform SpawnPoint;
@@ -36,7 +37,9 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GameOver() {
-        Spawn();
+        if (!EndGame) {
+            Spawn();
+        }
     }
 
 
@@ -47,6 +50,7 @@ public class GameManager : MonoBehaviour {
             transform.position = SpawnPoint.position;
             transform.gameObject.SetActive(true);
             transform.GetComponent<PlayerController>().squirrelId = i;
+            transform.GetComponent<PlayerController>().Alone = false;
             i++;
         }
         if (_currentSquirrel == 0) {
@@ -157,7 +161,7 @@ public class GameManager : MonoBehaviour {
 
     public void Death(int squirrelId)
     {
-        if (Atached)
+        if (Atached && !EndGame)
         {
             PlayersTransform[_currentSquirrel].DetachChildren();
             PlayersTransform[_currentSquirrel].parent.DetachChildren();
@@ -170,7 +174,10 @@ public class GameManager : MonoBehaviour {
         else if (_lifes[squirrelId] > 0)
         {
             _lifes[squirrelId]--;
-            TombGroup.Add(Instantiate(TombPrefab, new Vector2(PlayersTransform[_currentSquirrel].position.x, PlayersTransform[_currentSquirrel].position.y + (PlayersTransform[_currentSquirrel].GetComponent<BoxCollider2D>().offset.y *MultiplierOffsetY)), Quaternion.Euler(0, 0, 0)));
+            TombGroup.Add(Instantiate(TombPrefab,
+                PlayersTransform[squirrelId].position
+                + new Vector3(0, PlayersTransform[_currentSquirrel].GetComponent<BoxCollider2D>().offset.y *MultiplierOffsetY, 0),
+                    Quaternion.Euler(0, 0, 0)));
             foreach (GameObject tomb in TombGroup)
             {
                 tomb.SetActive(true);
@@ -180,8 +187,13 @@ public class GameManager : MonoBehaviour {
                 _currentSquirrel = 1 - _currentSquirrel;
                 PlayersTransform[squirrelId].DetachChildren();
             }
+            if (PlayersTransform[squirrelId].gameObject.TryGetComponent<PositionRewinder>(out PositionRewinder positionRewinder)) {
+                positionRewinder.ClearList();
+            }
             PlayersTransform[squirrelId].gameObject.SetActive(false);
-            PlayersTransform[squirrelId].parent.DetachChildren();
+            if (PlayersTransform[squirrelId].parent != null) {
+                PlayersTransform[squirrelId].parent.DetachChildren();
+            }
             if (_lifes[0] == 0 && _lifes[1] == 0)
             {
                 TombGroup[0].GetComponent<TombObject>().targetTomb = TombGroup[1].GetComponent<TombObject>();

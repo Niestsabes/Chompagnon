@@ -49,9 +49,15 @@ namespace Platformer.Mechanics
                 this.internTime = lastPosition.timestamp;
                 yield return this.RunRewind(lastPosition, this.listStamp[idx - 1]);
             }
-            this.internTime = this.listStamp[0].timestamp;
+            if (this.listStamp.Count > 0)
+                this.internTime = this.listStamp[0].timestamp;
             this.isRewinding = false;
             this.SetObjectInteractionEnabled(true);
+        }
+
+        public void ClearList() {
+            this.listStamp.Clear();
+            this.isRewinding = false;
         }
 
         public void StopRewinding()

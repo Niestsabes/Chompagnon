@@ -24,9 +24,6 @@ public class PoulieAnim : MonoBehaviour
 
         activateLeft += activate ? 1 : -1;
 
-        foreach (var wa in wheels) {
-            wa.rotateLeft = activateLeft;
-        }
 
         if (activateLeft != activateRight && currTime > minTime && currTime < maxTime) {
             if (GetComponent<AudioSource>().isPlaying) return;
@@ -56,7 +53,6 @@ public class PoulieAnim : MonoBehaviour
             if (activateLeft > activateRight) {
                 currTime -= Time.deltaTime;
                 moveLeft = true;
-
             }
             else {
                 currTime += Time.deltaTime;
@@ -89,6 +85,8 @@ public class PoulieAnim : MonoBehaviour
         }
         foreach (var wa in wheels) {
             wa.blocked = blocked;
+            wa.rotateLeft = moveLeft ? 1 : 0;
+            wa.rotateRight = moveRight ? 1 : 0;
         }
     }
 }

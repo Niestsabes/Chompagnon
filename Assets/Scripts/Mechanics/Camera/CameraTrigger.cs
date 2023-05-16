@@ -11,12 +11,15 @@ namespace Platformer.Mechanics
         [Header("Settings")]
         public CinemachineVirtualCamera virtualCamera;
 
+        public bool reliableTrigger = true;
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player == null) { return; }
             this.virtualCamera.enabled = true;
-            ReliableOnTriggerExit.NotifyTriggerEnter(collision, gameObject, OnTriggerExit2D);
+            if (reliableTrigger)
+                ReliableOnTriggerExit.NotifyTriggerEnter(collision, gameObject, OnTriggerExit2D);
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -24,7 +27,8 @@ namespace Platformer.Mechanics
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player == null) { return; }
             this.virtualCamera.enabled = false;
-            ReliableOnTriggerExit.NotifyTriggerExit(collision, gameObject);
+            if (reliableTrigger)
+                ReliableOnTriggerExit.NotifyTriggerExit(collision, gameObject);
         }
     }
 }
